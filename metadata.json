@@ -1,0 +1,6 @@
+{
+  "name": "Credence",
+  "description": "Ethical retail credit infrastructure matching faith-conscious consumers in Nigeria to interest-free financing.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

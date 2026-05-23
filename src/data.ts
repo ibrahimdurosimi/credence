@@ -3,7 +3,7 @@ import { Product, Partner, Milestone, TeamMember } from "./types";
 export const PRODUCTS: Product[] = [
   {
     id: "umrah",
-    name: "UmrahNowPayLater",
+    name: "Umrah Financing",
     category: "lifestyle",
     tag: "Faith, Growth & Experience",
     status: "live",
@@ -13,7 +13,7 @@ export const PRODUCTS: Product[] = [
     maxMonths: 36,
     itemCost: 2500000,
     features: [
-      "Co-designed with Sterling NIB",
+      "Co-designed with Nigeria's leading non-interest banking institution.",
       "Full flights, hotels & logistics included",
       "Zero riba, fully shariah-compliant structure",
       "Saves up to 15% booking volatility cost"
@@ -39,7 +39,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: "education",
-    name: "Higher Education — MSc/PhD",
+    name: "Studies Financing",
     category: "lifestyle",
     tag: "Faith, Growth & Experience",
     status: "coming",
@@ -113,23 +113,23 @@ export const PRODUCTS: Product[] = [
 
 export const PARTNERS: Partner[] = [
   {
-    name: "Sterling NIB",
-    role: "Capital & Custody Provider",
-    description: "Nigeria's pioneer dedicated non-interest bank, providing robust, shariah-governed balance sheets to fund Credence's retail contracts.",
-    logo: "S",
+    name: "[Name TBC]",
+    role: "Capital Partner",
+    description: "Non-Interest Banking. Powers Umrah Financing. Expanding to solar and rent financing products.",
+    logo: "C",
     type: "capital"
   },
   {
     name: "New Crescent Travel",
-    role: "Pilgrimage Logistics",
-    description: "An accredited flagship travel and tourism operator managing high-quality, verified hotel bookings, flight listings, and local Saudi logistics.",
+    role: "Merchant Partner",
+    description: "Travel & pilgrimage logistics. Handles coordination, booking, and on-ground pilgrimage services.",
     logo: "N",
     type: "merchant"
   },
   {
-    name: "SolarMerch Ltd",
-    role: "Household Product Pilot Partner",
-    description: "Leading local manufacturer providing premium inverter solutions and batteries, carrying complete 3-year warranty cover for residential pilot users.",
+    name: "Solar Merchants",
+    role: "Product Partners",
+    description: "Two merchants engaged for Q3 2026 solar financing pilot. Average ticket size ₦1M.",
     logo: "SM",
     type: "product"
   }
@@ -139,22 +139,22 @@ export const MILESTONES: Milestone[] = [
   {
     year: "2019",
     title: "Founding & Accion Venture Lab Winner",
-    description: "Credence was founded to rewrite interest-free access. Selected among elite world innovators for the Accion Venture Lab program."
+    description: "Founded Credence. Selected for Accion Venture Lab global incubation programme."
   },
   {
     year: "2020",
     title: "Domain Preparation inside Non-Interest Bank",
-    description: "To build competence from within, our founder spent years working actively inside a non-interest institution, refining product pipelines."
+    description: "Joined non-interest financial institution. Deliberate inside competence building."
   },
   {
     year: "2021",
     title: "Academic Specialization & Partnerships",
-    description: "Secured PGD in Islamic Finance and structured early strategic agreements with Sterling NIB and New Crescent Travel."
+    description: "Completed PGD in Islamic Finance. Established early partnerships."
   },
   {
     year: "2025",
-    title: "UmrahNowPayLater Launch",
-    description: "Successfully launched our flagship pilgrimage package to enthusiastic Nigerian retail customers, maintaining perfect compliance."
+    title: "Umrah Financing Launch",
+    description: "Umrah Financing product designed. Solar financing pilot secured for Q3 2026."
   }
 ];
 
@@ -163,9 +163,7 @@ export const TEAM: TeamMember[] = [
     name: "Eb'rahim Durosimi",
     role: "Founder & CEO",
     bio: [
-      "Four years of deliberate preparation, holding a PGD in Islamic Finance and recognized as an Accion Venture Lab alumnus (2019).",
-      "Gained deep operational competence inside Nigeria's leading non-interest banking system, developing an intricate grasp of murabaha, ijarah, and mudarabah structures.",
-      "A seasoned product formulator and business model architect, with previous entrepreneurial success spanning growth marketing and EdTech."
+      "Four years of deliberate preparation. A PGD in Islamic Finance, a 2019 Accion Venture Lab alumnus, and a strategic career inside a non-interest institution to build domain expertise from within. Deep experience in product innovation, growth marketing, and business model design — previously built an EdTech startup and a digital marketing agency."
     ]
   }
 ];

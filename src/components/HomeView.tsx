@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Sparkles, ArrowRight, Plane, House, ShieldCheck, Briefcase, Activity, CheckCircle, Flame } from "lucide-react";
+import React, { useState, useEffect } from "react";
+import { Sparkles, ArrowRight, Plane, House, ShieldCheck, Briefcase, Activity, CheckCircle, Clock, MessageSquare, BookOpen } from "lucide-react";
 import AdvisorChat from "./AdvisorChat";
 import { PRODUCTS } from "../data";
 
@@ -10,15 +10,27 @@ interface HomeViewProps {
 export default function HomeView({ setCurrentTab }: HomeViewProps) {
   const [activeAccordionIdx, setActiveAccordionIdx] = useState(0);
 
+  // Cycling headline words
+  const financeWords = ["Finance", "Afford", "Enable", "Unlock", "Build", "Fund"];
+  const compromiseWords = ["compromise", "guilt", "RIBA", "worry", "doubt", "limits"];
+  const [wordIdx, setWordIdx] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setWordIdx((prev) => (prev + 1) % financeWords.length);
+    }, 2500);
+    return () => clearInterval(interval);
+  }, [financeWords.length]);
+
   const accordions = [
     {
       title: "Lifestyle",
       subtitle: "Faith, growth & experience",
       icon: <Plane className="h-5 w-5 text-[#C9A84C]" />,
       items: [
-        { name: "UmrahNowPayLater", status: "Live now", statusType: "live" },
+        { name: "Umrah Financing", status: "Live now", statusType: "live" },
         { name: "Hajj financing", status: "Q4 2026", statusType: "soon" },
-        { name: "Higher education — MSc/PhD", status: "2027", statusType: "coming" },
+        { name: "Studies Financing", status: "2027", statusType: "coming" },
         { name: "Professional certifications", status: "2027", statusType: "coming" },
       ],
     },
@@ -30,6 +42,7 @@ export default function HomeView({ setCurrentTab }: HomeViewProps) {
         { name: "Solar / renewable energy", status: "Q3 2026", statusType: "soon" },
         { name: "Rent financing", status: "Q4 2026", statusType: "soon" },
         { name: "Housing down payment", status: "2027", statusType: "coming" },
+        { name: "Auto Financing", status: "2027", statusType: "coming" },
         { name: "Nikkah / wedding prep", status: "2027", statusType: "coming" },
       ],
     },
@@ -48,33 +61,32 @@ export default function HomeView({ setCurrentTab }: HomeViewProps) {
   return (
     <div className="bg-cream text-purple-deep overflow-x-hidden animate-fade-in">
       {/* 1. Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-[#1E0A4E] via-[#2A1061] to-[#160636] text-white pt-40 pb-32 px-6">
+      <section className="relative overflow-hidden bg-cream text-purple-deep pt-32 pb-24 px-6 lg:pt-40 lg:pb-32 lg:px-12">
         {/* Subtle patterned gold grids */}
-        <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ backgroundImage: "radial-gradient(#D4A843 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
+        <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: "radial-gradient(#D4A843 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
         
         {/* Beautiful blur orb top right */}
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-gold/20 rounded-full blur-[100px] pointer-events-none mix-blend-screen" />
-        
-        {/* Absolute visual golden border side decoration */}
-        <div className="absolute left-0 top-0 bottom-0 w-2 bg-gradient-to-b from-gold to-gold-light md:w-3" />
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-gold/10 rounded-full blur-[100px] pointer-events-none mix-blend-multiply" />
 
-        <div className="relative mx-auto max-w-7xl px-4 md:px-8 z-10">
+        <div className="relative mx-auto max-w-7xl z-10 grid lg:grid-cols-2 gap-12 items-center">
           <div className="max-w-2xl">
             {/* Tag Badge */}
-            <div className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-gold/10 px-5 py-2 mb-8 backdrop-blur-md">
+            <div className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-gold/10 px-5 py-2 mb-8">
               <Sparkles className="h-4 w-4 text-gold animate-pulse" />
               <span className="text-xs font-bold uppercase tracking-[0.25em] text-gold">
                 Ethical Lifestyle Finance
               </span>
             </div>
 
-            <h1 className="font-serif text-5xl font-semibold leading-[1.05] md:text-7xl tracking-tight text-white mb-8">
-              Finance the life you want.<br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-gold to-[#fdea98] italic md:not-italic drop-shadow-sm">Without compromise.</span>
+            <h1 className="font-serif text-5xl font-semibold leading-[1.2] md:text-7xl tracking-tight text-purple-deep mb-8 min-h-[140px] md:min-h-[160px]">
+              <span className="inline-block transition-all duration-500 text-transparent bg-clip-text bg-gradient-to-r from-gold to-yellow-600 italic pr-2">
+                {financeWords[wordIdx]}
+              </span>
+              the life you want. Without <span className="inline-block transition-all duration-500 delay-100 text-transparent bg-clip-text bg-gradient-to-r from-gold to-yellow-600 italic pl-1">{compromiseWords[wordIdx]}</span>
             </h1>
 
-            <p className="text-white/80 text-lg md:text-xl leading-relaxed max-w-2xl mb-12 font-sans font-light">
-              Credence is the trusted fintech platform enabling faith-conscious Nigerians to access retail financing completely interest-free—never compromising principle for convenience.
+            <p className="text-purple-deep/80 text-lg md:text-xl leading-relaxed max-w-2xl mb-12 font-sans font-light">
+              Credence is a financial technology platform that enables faith-conscious Nigerians to finance the life they want — without compromising the values they hold.
             </p>
 
             <div className="flex flex-wrap gap-5">
@@ -86,30 +98,82 @@ export default function HomeView({ setCurrentTab }: HomeViewProps) {
               </button>
               <button
                 onClick={() => setCurrentTab("products")}
-                className="inline-flex items-center gap-2 rounded-full border-2 border-white/20 bg-white/5 backdrop-blur-sm hover:bg-white/10 hover:border-white/40 text-white px-8 py-4 text-base font-semibold transition-all cursor-pointer"
+                className="inline-flex items-center gap-2 rounded-full border-2 border-purple-deep/20 bg-purple-deep/5 hover:bg-purple-deep/10 hover:border-purple-deep/30 text-purple-deep px-8 py-4 text-base font-semibold transition-all cursor-pointer"
               >
                 See how it works
               </button>
             </div>
           </div>
+          
+          {/* Right side elements */}
+          <div className="hidden lg:block relative h-[600px] w-full">
+            <div className="absolute top-10 right-10 bg-white border border-[#E8E2D8] rounded-3xl p-6 shadow-xl w-80 transform rotate-3 hover:rotate-0 transition duration-500 cursor-pointer hover:shadow-2xl z-20" onClick={() => setCurrentTab("products")}>
+              <div className="flex items-center gap-4 mb-5">
+                <div className="w-14 h-14 rounded-2xl bg-gold/10 flex items-center justify-center text-gold">
+                  <Plane className="h-7 w-7" />
+                </div>
+                <div>
+                  <div className="text-purple-deep font-serif text-lg font-medium">UmrahNowPayLater</div>
+                  <div className="text-gold text-xs font-mono uppercase tracking-widest mt-1">0% RIBA</div>
+                </div>
+              </div>
+              <div className="space-y-4">
+                <div className="h-3 w-full bg-slate-100 rounded-full overflow-hidden">
+                   <div className="h-full bg-gold w-1/3" />
+                </div>
+                <div className="flex justify-between text-xs text-slate-500 font-mono">
+                  <span>30% Down</span>
+                  <span>Spread over 36m</span>
+                </div>
+              </div>
+            </div>
+            
+            <div className="absolute top-48 right-32 bg-white border border-[#E8E2D8] rounded-3xl p-6 shadow-xl w-80 transform -rotate-3 hover:rotate-0 transition duration-500 cursor-pointer hover:shadow-2xl z-10" onClick={() => setCurrentTab("products")}>
+              <div className="flex items-center gap-4 mb-5">
+                <div className="w-14 h-14 rounded-2xl bg-emerald-500/10 flex items-center justify-center text-emerald-600">
+                  <House className="h-7 w-7" />
+                </div>
+                <div>
+                  <div className="text-purple-deep font-serif text-lg font-medium">Solar & Renewable</div>
+                  <div className="text-emerald-600 text-xs font-mono uppercase tracking-widest mt-1">Cost-plus model</div>
+                </div>
+              </div>
+              <div className="space-y-4">
+                <div className="h-3 w-full bg-slate-100 rounded-full overflow-hidden">
+                   <div className="h-full bg-emerald-500 w-1/4" />
+                </div>
+                <div className="flex justify-between text-xs text-slate-500 font-mono">
+                  <span>Fixed profit</span>
+                  <span>Zero compounding</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="absolute top-80 right-4 bg-white border border-[#E8E2D8] rounded-3xl p-6 shadow-xl w-80 transform rotate-6 hover:rotate-0 transition duration-500 cursor-pointer hover:shadow-2xl z-30" onClick={() => setCurrentTab("products")}>
+              <div className="flex items-center gap-4 mb-5">
+                <div className="w-14 h-14 rounded-2xl bg-blue-500/10 flex items-center justify-center text-blue-600">
+                  <Briefcase className="h-7 w-7" />
+                </div>
+                <div>
+                  <div className="text-purple-deep font-serif text-lg font-medium">Business Assets</div>
+                  <div className="text-blue-600 text-xs font-mono uppercase tracking-widest mt-1">Ijara Model</div>
+                </div>
+              </div>
+              <div className="space-y-4">
+                <div className="h-3 w-full bg-slate-100 rounded-full overflow-hidden">
+                   <div className="h-full bg-blue-500 w-2/5" />
+                </div>
+                <div className="flex justify-between text-xs text-slate-500 font-mono">
+                  <span>Flexible term</span>
+                  <span>Rent-to-own</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* 2. Brand Ticker Section */}
-      <div className="bg-white border-y border-[#E8E2D8] py-4 overflow-hidden">
-        <div className="flex items-center gap-12 whitespace-nowrap animate-marquee flex-nowrap shrink-0">
-          <div className="flex items-center gap-12 text-xs font-semibold uppercase font-mono tracking-wider text-slate-500">
-            {Array(4).fill([
-              "Ethical Finance", "Powered by Sterling NIB", "Zero RIBA", "UmrahNowPayLater", "HalalInside", "Aspire Tech"
-            ]).flat().map((text, idx) => (
-              <span key={idx} className="flex items-center gap-3">
-                <span className="h-1.5 w-1.5 rounded-full bg-gold" />
-                <span>{text}</span>
-              </span>
-            ))}
-          </div>
-        </div>
-      </div>
+
 
       {/* 3. Problem/Solution Section */}
       <section className="py-20 px-6 mx-auto max-w-7xl animate-fade-in">
@@ -141,9 +205,9 @@ export default function HomeView({ setCurrentTab }: HomeViewProps) {
           </div>
           <div className="rounded-2xl border border-[#E8E2D8] bg-white p-8 hover:shadow-lg hover:border-gold/30 transition duration-200">
             <span className="font-serif text-2xl font-semibold text-gold/40 block mb-4">03</span>
-            <h3 className="font-serif text-lg font-bold text-purple-deep mb-3">We built the bridge</h3>
+            <h3 className="font-serif text-lg font-bold text-purple-deep mb-3">No one built the bridge</h3>
             <p className="text-slate-600 text-sm leading-relaxed">
-              Credence establishes raw, secure connections between customer demand, merchants, and banking liquidity—meaning simplified finance fully approved under non-interest standards.
+              28.8 million Nigerians are completely financially excluded. Essential needs — solar, housing, education, pilgrimage — go unmet. Until now.
             </p>
           </div>
         </div>
@@ -154,32 +218,32 @@ export default function HomeView({ setCurrentTab }: HomeViewProps) {
         <div className="mx-auto max-w-7xl grid gap-12 lg:grid-cols-2 lg:items-center">
           <div>
             <span className="text-xs font-semibold uppercase tracking-[0.25em] text-gold block mb-3 font-mono">
-              Credence Advisor
+              Umaiza — AI-powered interest-free financial advisor
             </span>
             <h2 className="font-serif text-3xl md:text-5xl font-semibold leading-tight mb-4">
               Meet your personal<br />
               <span className="text-gold italic font-serif">ethical finance guide.</span>
             </h2>
             <p className="text-white/70 text-sm md:text-base leading-relaxed max-w-lg mb-8">
-              Not a dry question form. Not a rigid bot. A highly compassionate advisor that outlines eligibility, details how contract leasing actually works, and matches you to the right non-interest product.
+              Not a chatbot. Not a form. A genuinely intelligent advisor that understands your needs, checks your eligibility, and connects you to the right ethical financing — in plain language, in minutes.
             </p>
 
             <ul className="space-y-3.5 mb-10 text-sm text-white/80">
               <li className="flex items-center gap-3">
                 <span className="h-1.5 w-1.5 rounded-full bg-gold" />
-                <span>Understands your need in natural English</span>
+                <span>Understands your need in natural language</span>
               </li>
               <li className="flex items-center gap-3">
                 <span className="h-1.5 w-1.5 rounded-full bg-gold" />
-                <span>Explains the exact profit margins transparently</span>
+                <span>Checks eligibility across all Credence products</span>
               </li>
               <li className="flex items-center gap-3">
                 <span className="h-1.5 w-1.5 rounded-full bg-gold" />
-                <span>Zero variable interest rates, zero hidden fees</span>
+                <span>Explains how ethical financing actually works</span>
               </li>
               <li className="flex items-center gap-3">
                 <span className="h-1.5 w-1.5 rounded-full bg-gold" />
-                <span>Direct interface with Sterling NIB processes</span>
+                <span>Available 24/7 — no appointment needed</span>
               </li>
             </ul>
 
@@ -190,14 +254,50 @@ export default function HomeView({ setCurrentTab }: HomeViewProps) {
               }}
               className="inline-flex items-center gap-2 rounded-full border border-white/20 hover:border-gold hover:text-gold px-6 py-3 text-sm font-semibold transition cursor-pointer"
             >
-              Try Credence Advisor <ArrowRight className="h-4 w-4" />
+              Ask Umaiza <ArrowRight className="h-4 w-4" />
             </button>
           </div>
 
           {/* Interactive Chat Block */}
           <div id="advisor-chat-pane" className="relative scroll-mt-24">
             <div className="absolute -top-10 -left-10 h-40 w-40 rounded-full bg-gold/10 blur-3xl pointer-events-none" />
-            <AdvisorChat />
+            <div 
+              className="relative rounded-[20px] overflow-hidden border border-white/20 bg-white/5 backdrop-blur-md cursor-pointer group hover:border-gold/50 transition-all aspect-[4/5] max-h-[520px] min-h-[480px] flex flex-col"
+              onClick={() => setCurrentTab("advisor")}
+            >
+              <div className="absolute inset-0 bg-[#1E0A4E]/60 group-hover:bg-[#1E0A4E]/40 transition-all z-20 flex flex-col items-center justify-center backdrop-blur-[2px] group-hover:backdrop-blur-none">
+                 <div className="bg-[#D4A843] text-[#1E0A4E] px-7 py-3.5 rounded-full font-semibold shadow-2xl flex items-center gap-2 transform group-hover:scale-105 transition-transform hover:bg-yellow-500">
+                   Talk to Umaiza Now <ArrowRight className="h-4 w-4" />
+                 </div>
+              </div>
+              
+              <div className="p-4 px-5 border-b border-white/5 flex items-center justify-between opacity-50 group-hover:opacity-100 transition-opacity pointer-events-none filter blur-[1px] group-hover:blur-none">
+                <div className="flex items-center gap-3">
+                  <div className="w-[38px] h-[38px] bg-gold rounded-full flex items-center justify-center font-serif text-[17px] font-semibold text-[#1E0A4E]">
+                    U
+                  </div>
+                  <div>
+                    <div className="text-[14px] font-medium text-white leading-tight">Umaiza</div>
+                    <div className="flex items-center gap-1.5 text-[12px] text-white/40 mt-0.5">
+                      <span className="w-1.5 h-1.5 bg-[#4ADE80] rounded-full animate-pulse" />
+                      Online — responds instantly
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="opacity-50 group-hover:opacity-100 transition-opacity p-6 pointer-events-none filter blur-[1px] group-hover:blur-none flex-1 flex flex-col justify-end gap-3 pb-8">
+                 <div className="bg-white/5 border border-white/10 text-white/85 p-4 py-3 rounded-tr-[14px] rounded-br-[14px] rounded-bl-[14px] rounded-tl-[2px] max-w-[85%] text-[13.5px] leading-[1.6]">
+                   As-salamu alaykum! I'm Umaiza, your personal interest-free finance guide. What would you like to finance today?
+                 </div>
+                 <div className="bg-gold text-[#1E0A4E] p-4 py-3 rounded-tl-[14px] rounded-br-[14px] rounded-bl-[14px] rounded-tr-[2px] max-w-[85%] ml-auto text-[13.5px] leading-[1.6] font-medium">
+                   I want to go for Umrah but I can't pay everything upfront
+                 </div>
+                 <div className="bg-white/5 border border-white/10 text-white/85 p-4 py-3 rounded-tr-[14px] rounded-br-[14px] rounded-bl-[14px] rounded-tl-[2px] max-w-[85%] text-[13.5px] leading-[1.6]">
+                   MashaAllah — may Allah accept your intention! With Umrah Financing, you pay just 30% now and spread the rest over up to 36 months. 100% interest-free, fully halal. Want me to check if you qualify?
+                 </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -211,7 +311,7 @@ export default function HomeView({ setCurrentTab }: HomeViewProps) {
           One platform. Three winners.
         </h2>
         <p className="text-slate-600 max-w-xl mb-12 text-sm leading-relaxed">
-          We don't buy or warehouse inventory. We don't lend direct banking capital. We orchestrate the interface that allows individuals, merchants, and ethical funders to connect.
+          We don't lend capital. We don't sell merchandise. We orchestrate the trusted relationships that make ethical financing work at scale.
         </p>
 
         <div className="grid gap-6 md:grid-cols-3">
@@ -222,7 +322,7 @@ export default function HomeView({ setCurrentTab }: HomeViewProps) {
               </div>
               <h3 className="font-serif text-lg font-bold text-purple-deep mb-3">For customers</h3>
               <p className="text-slate-600 text-sm leading-relaxed mb-6">
-                Spread expensive life costs across predictable fixed monthly tenures completely free of variable riba. Secure and private with immediate decisions.
+                Interest-free financing for the things that matter — Umrah, education, energy, home. Your values, fully intact.
               </p>
             </div>
             <button onClick={() => setCurrentTab("products")} className="inline-flex items-center gap-1 text-sm font-bold text-purple-deep hover:text-gold transition cursor-pointer">
@@ -237,7 +337,7 @@ export default function HomeView({ setCurrentTab }: HomeViewProps) {
               </div>
               <h3 className="font-serif text-lg font-bold text-purple-deep mb-3">For merchants</h3>
               <p className="text-slate-600 text-sm leading-relaxed mb-6">
-                Offer installment checkouts to high-intent shoppers, converting browsers who would normally walk away. 100% of purchase values settled instantly.
+                Convert browsers to buyers with qualified ethical financing at checkout. No inventory risk, no integration hassle.
               </p>
             </div>
             <button onClick={() => setCurrentTab("merchants")} className="inline-flex items-center gap-1 text-sm font-bold text-emerald-800 hover:text-gold transition cursor-pointer">
@@ -252,7 +352,7 @@ export default function HomeView({ setCurrentTab }: HomeViewProps) {
               </div>
               <h3 className="font-serif text-lg font-bold text-purple-deep mb-3">For capital providers</h3>
               <p className="text-slate-600 text-sm leading-relaxed mb-6">
-                Reach highly pre-qualified retail pipeline to deploy capital. Fully audited compliance, real-time risk scores, zero direct branch operation cost.
+                Reach retail customers without building expensive consumer distribution. Pre-qualified, principle-aligned, ready to fund.
               </p>
             </div>
             <button onClick={() => setCurrentTab("capital")} className="inline-flex items-center gap-1 text-sm font-bold text-amber-800 hover:text-gold transition cursor-pointer">
@@ -332,14 +432,14 @@ export default function HomeView({ setCurrentTab }: HomeViewProps) {
       <section className="bg-purple-deep text-white py-20 px-6 text-center border-t border-white/5">
         <div className="mx-auto max-w-3xl leading-relaxed">
           <span className="text-xs font-semibold uppercase tracking-[0.25em] text-gold block mb-4 font-mono">
-            Get Started with Credence
+            YOUR ETHICAL FINANCIAL LIFE STARTS HERE
           </span>
           <h2 className="font-serif text-3xl md:text-5xl font-semibold mb-6">
             Ready to finance the life<br />
             <span className="text-gold italic font-serif">you actually want?</span>
           </h2>
           <p className="text-white/75 text-sm md:text-base max-w-lg mx-auto mb-10">
-            Join thousands of modern Nigerians who align their wealth structures to their personal ethical standards. Apply for free inside minutes.
+            Whether you're a customer, a merchant, or a capital partner — we'd love to talk.
           </p>
 
           <div className="flex flex-wrap justify-center gap-4">

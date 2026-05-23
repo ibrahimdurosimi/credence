@@ -8,14 +8,12 @@ interface HeaderProps {
 
 export default function Header({ currentTab, setCurrentTab }: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const isDark = currentTab === "advisor";
 
   const navigation = [
-    { id: "home", label: "Home" },
     { id: "about", label: "About" },
     { id: "products", label: "Products" },
-    { id: "partners", label: "Partners" },
-    { id: "capital", label: "For Capital" },
-    { id: "merchants", label: "For Merchants" },
+    { id: "build", label: "Build With Credence" },
     { id: "contact", label: "Contact" },
   ];
 
@@ -26,20 +24,16 @@ export default function Header({ currentTab, setCurrentTab }: HeaderProps) {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-[#1E0A4E]/80 backdrop-blur-md border-b border-white/10 shadow-sm transition-all duration-300">
+    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isDark ? 'bg-[#1E0A4E]' : 'bg-cream/90 backdrop-blur-md border-b border-[#E8E2D8]'}`}>
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
         {/* Logo */}
         <button
           onClick={() => handleNavClick("home")}
-          className="flex items-center gap-2 cursor-pointer focus:outline-none group text-left"
+          className="flex items-center cursor-pointer focus:outline-none group text-left"
           id="nav-logo"
         >
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gold text-purple-deep font-bold font-serif text-xl group-hover:scale-105 transition-transform">
-            C
-          </div>
-          <span className="font-sans text-xl md:text-2xl font-bold text-white tracking-tight group-hover:text-gold-light transition duration-200">
-            Credence
-          </span>
+          <span className="font-serif text-3xl font-medium text-gold">O</span>
+          <span className={`font-serif text-3xl font-medium tracking-tight ${isDark ? 'text-white' : 'text-purple-deep'}`}>credence</span>
         </button>
 
         {/* Desktop Navbar */}
@@ -50,8 +44,8 @@ export default function Header({ currentTab, setCurrentTab }: HeaderProps) {
               onClick={() => handleNavClick(item.id)}
               className={`text-sm font-medium transition duration-200 cursor-pointer ${
                 currentTab === item.id
-                  ? "text-gold font-semibold border-b-[2px] border-gold pb-1 mt-[2px]"
-                  : "text-white/80 hover:text-gold hover:scale-[1.02]"
+                  ? `font-semibold border-b-[2px] pb-1 mt-[2px] ${isDark ? 'text-gold border-gold' : 'text-purple-deep border-purple-deep'}`
+                  : `${isDark ? 'text-white/80 hover:text-gold' : 'text-purple-deep/70 hover:text-purple-deep'} hover:scale-[1.02]`
               }`}
             >
               {item.label}
@@ -63,7 +57,9 @@ export default function Header({ currentTab, setCurrentTab }: HeaderProps) {
         <div className="flex items-center gap-3">
           <button
             onClick={() => handleNavClick("contact")}
-            className="hidden rounded-full bg-gold px-6 py-2.5 text-xs font-bold text-purple-deep shadow-[0_2px_10px_rgba(212,168,67,0.3)] transition-all hover:bg-gold-light hover:scale-105 active:scale-95 sm:inline-flex cursor-pointer"
+            className={`hidden rounded-full px-6 py-2.5 text-xs font-bold shadow-[0_2px_10px_rgba(0,0,0,0.1)] transition-all hover:scale-105 active:scale-95 sm:inline-flex cursor-pointer ${
+              isDark ? 'bg-white text-purple-deep hover:bg-white/90' : 'bg-purple-deep text-white hover:bg-purple-deep/90'
+            }`}
           >
             Get Started
           </button>
@@ -71,7 +67,9 @@ export default function Header({ currentTab, setCurrentTab }: HeaderProps) {
           {/* Mobile Menu Toggle */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="rounded-full bg-white/5 p-2 text-white hover:bg-white/10 lg:hidden focus:outline-none transition"
+            className={`rounded-full p-2 lg:hidden focus:outline-none transition ${
+              isDark ? 'bg-white/5 text-white hover:bg-white/10' : 'bg-purple-deep/5 text-purple-deep hover:bg-purple-deep/10'
+            }`}
             aria-label="Toggle Menu"
           >
             {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -81,7 +79,9 @@ export default function Header({ currentTab, setCurrentTab }: HeaderProps) {
 
       {/* Mobile Sliding Drawer */}
       {mobileMenuOpen && (
-        <div className="absolute top-18 left-4 right-4 z-40 rounded-2xl border border-white/10 bg-purple-deep p-6 shadow-2xl lg:hidden">
+        <div className={`absolute top-18 left-4 right-4 z-40 rounded-2xl p-6 shadow-2xl lg:hidden ${
+          isDark ? 'bg-purple-deep border border-white/10' : 'bg-white border border-[#E8E2D8]'
+        }`}>
           <nav className="flex flex-col gap-4">
             {navigation.map((item) => (
               <button
@@ -89,8 +89,8 @@ export default function Header({ currentTab, setCurrentTab }: HeaderProps) {
                 onClick={() => handleNavClick(item.id)}
                 className={`py-2 text-left text-sm font-medium transition ${
                   currentTab === item.id
-                    ? "text-gold font-semibold pl-2 border-l-2 border-gold"
-                    : "text-white/70 hover:text-white"
+                    ? `font-semibold pl-2 border-l-2 ${isDark ? 'text-gold border-gold' : 'text-purple-deep border-purple-deep'}`
+                    : `${isDark ? 'text-white/70 hover:text-white' : 'text-slate-600 hover:text-purple-deep'}`
                 }`}
               >
                 {item.label}
@@ -98,7 +98,9 @@ export default function Header({ currentTab, setCurrentTab }: HeaderProps) {
             ))}
             <button
               onClick={() => handleNavClick("contact")}
-              className="mt-4 w-full rounded-xl bg-gold py-3 text-center text-sm font-semibold text-purple-deep transition duration-150 hover:bg-gold-light"
+              className={`mt-4 w-full rounded-full py-3 text-center text-sm font-semibold transition duration-150 ${
+                isDark ? 'bg-white text-purple-deep hover:bg-white/90' : 'bg-purple-deep text-white hover:bg-purple-deep/90'
+              }`}
             >
               Get Started
             </button>

@@ -6,13 +6,13 @@ export default function AboutView() {
   return (
     <div className="bg-cream text-purple-deep overflow-x-hidden">
       {/* SECTION 1: HERO */}
-      <section className="bg-purple-deep text-white py-32 px-6 flex flex-col items-center justify-center text-center relative overflow-hidden">
+      <section className="bg-purple-deep text-cream py-32 px-6 flex flex-col items-center justify-center text-center relative overflow-hidden">
         <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ backgroundImage: "radial-gradient(#D4A843 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
         <div className="relative z-10 max-w-4xl mx-auto">
           <h1 className="font-serif text-5xl md:text-7xl font-semibold mb-6">
             Building the bridge<br />ethical finance deserves.
           </h1>
-          <p className="text-white/80 text-lg md:text-xl leading-relaxed max-w-2xl mx-auto font-sans font-light">
+          <p className="text-cream/80 text-lg md:text-xl leading-relaxed max-w-2xl mx-auto font-sans font-light">
             We exist to make interest-free financing accessible, simple, and dignified — for every Nigerian who refuses to compromise their values to access it.
           </p>
         </div>
@@ -26,7 +26,7 @@ export default function AboutView() {
         <h2 className="font-serif text-3xl md:text-5xl font-semibold tracking-tight text-purple-deep mb-10 text-center leading-tight">
           Because 90 million Nigerians deserve better than a choice between their faith and their financial life.
         </h2>
-        <div className="space-y-6 text-slate-700 leading-relaxed text-lg font-light">
+        <div className="space-y-6 text-purple-deep/90 leading-relaxed text-lg font-light">
           <p>
             For millions of Nigerians, money is not just a transaction. It is a moral act.
           </p>
@@ -49,7 +49,7 @@ export default function AboutView() {
       </section>
 
       {/* SECTION 3: THE SCALE OF THE OPPORTUNITY */}
-      <section className="bg-white py-24 px-6 border-y border-[#E8E2D8]">
+      <section className="bg-white py-24 px-6 border-y border-purple-deep/10">
         <div className="mx-auto max-w-6xl">
            <span className="text-xs font-semibold uppercase tracking-[0.25em] text-gold block mb-6 font-mono text-center">
             THE SCALE OF THE OPPORTUNITY
@@ -61,23 +61,23 @@ export default function AboutView() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16 text-center">
              <div>
                <div className="text-4xl md:text-5xl font-serif text-gold font-bold mb-2">90M</div>
-               <div className="text-sm font-semibold uppercase tracking-wider text-slate-500 font-mono">Muslims in Nigeria</div>
+               <div className="text-sm font-semibold uppercase tracking-wider text-purple-deep/50 font-mono">Muslims in Nigeria</div>
              </div>
              <div>
                <div className="text-4xl md:text-5xl font-serif text-gold font-bold mb-2">$4B</div>
-               <div className="text-sm font-semibold uppercase tracking-wider text-slate-500 font-mono">NIB sector size</div>
+               <div className="text-sm font-semibold uppercase tracking-wider text-purple-deep/50 font-mono">NIB sector size</div>
              </div>
              <div>
                <div className="text-4xl md:text-5xl font-serif text-gold font-bold mb-2">110%</div>
-               <div className="text-sm font-semibold uppercase tracking-wider text-slate-500 font-mono">YoY sector growth</div>
+               <div className="text-sm font-semibold uppercase tracking-wider text-purple-deep/50 font-mono">YoY sector growth</div>
              </div>
              <div>
                <div className="text-4xl md:text-5xl font-serif text-gold font-bold mb-2">47%</div>
-               <div className="text-sm font-semibold uppercase tracking-wider text-slate-500 font-mono">NW exclusion rate</div>
+               <div className="text-sm font-semibold uppercase tracking-wider text-purple-deep/50 font-mono">NW exclusion rate</div>
              </div>
           </div>
           
-          <div className="max-w-3xl mx-auto text-slate-700 leading-relaxed text-lg font-light text-center">
+          <div className="max-w-3xl mx-auto text-purple-deep/90 leading-relaxed text-lg font-light text-center">
              The non-interest banking sector in Nigeria is growing at 110% year-on-year. The demand is not the problem. Distribution is. There are only a handful of licensed non-interest institutions serving 90 million potential customers. The gap between supply and demand is not a crack — it is a chasm. And it represents one of the largest untapped financial markets on the African continent.
           </div>
         </div>
@@ -91,7 +91,7 @@ export default function AboutView() {
         <h2 className="font-serif text-3xl md:text-5xl font-semibold tracking-tight text-purple-deep mb-10 text-center leading-tight">
           The future of credit is ethical, values-based, and community-rooted.
         </h2>
-        <div className="space-y-6 text-slate-700 leading-relaxed text-lg font-light">
+        <div className="space-y-6 text-purple-deep/90 leading-relaxed text-lg font-light">
           <p>
             Conventional credit was built for a world that assumed everyone shared the same relationship with money and debt. That world never existed — and it certainly does not describe Nigeria.
           </p>
@@ -114,15 +114,15 @@ export default function AboutView() {
       </section>
 
       {/* SECTION 5: WHY THIS MATTERS BEYOND FAITH */}
-      <section className="bg-[#1E0A4E] text-white py-24 px-6 border-y border-white/5">
+      <section className="bg-purple-deep text-cream py-24 px-6 border-y border-cream/5">
         <div className="mx-auto max-w-4xl">
           <span className="text-xs font-semibold uppercase tracking-[0.25em] text-gold block mb-6 font-mono text-center">
             WHY THIS MATTERS BEYOND FAITH
           </span>
-          <h2 className="font-serif text-3xl md:text-5xl font-semibold tracking-tight text-white mb-10 text-center leading-tight">
+          <h2 className="font-serif text-3xl md:text-5xl font-semibold tracking-tight text-cream mb-10 text-center leading-tight">
             Financial exclusion is not just inconvenient. It is dangerous.
           </h2>
-          <div className="space-y-6 text-white/80 leading-relaxed text-lg font-light">
+          <div className="space-y-6 text-cream/80 leading-relaxed text-lg font-light">
             <p>
               When faith-conscious Nigerians are excluded from the formal credit economy, the consequences ripple outward in ways that affect everyone.
             </p>
@@ -149,7 +149,7 @@ export default function AboutView() {
       </section>
 
       {/* SECTION 6: WHAT WE STAND FOR */}
-      <section className="py-24 px-6 border-b border-[#E8E2D8] bg-cream">
+      <section className="py-24 px-6 border-b border-purple-deep/10 bg-cream">
         <div className="max-w-6xl mx-auto">
            <span className="text-xs font-semibold uppercase tracking-[0.25em] text-gold block mb-4 font-mono text-center">
               WHAT WE STAND FOR
@@ -158,21 +158,21 @@ export default function AboutView() {
               What we stand for.
            </h2>
            <div className="grid md:grid-cols-3 gap-8">
-              <div className="bg-white p-8 rounded-2xl shadow-sm border border-[#E8E2D8]">
+              <div className="bg-white p-8 rounded-2xl shadow-sm border border-purple-deep/10">
                 <h3 className="font-serif text-xl font-bold text-purple-deep mb-4">Principle First</h3>
-                <p className="text-slate-600 leading-relaxed font-light">
+                <p className="text-purple-deep/70 leading-relaxed font-light">
                   Every product and partnership passes a strict ethical filter. No interest. No compromise. No exceptions.
                 </p>
               </div>
-              <div className="bg-white p-8 rounded-2xl shadow-sm border border-[#E8E2D8]">
+              <div className="bg-white p-8 rounded-2xl shadow-sm border border-purple-deep/10">
                 <h3 className="font-serif text-xl font-bold text-purple-deep mb-4">Customer Owned</h3>
-                <p className="text-slate-600 leading-relaxed font-light">
+                <p className="text-purple-deep/70 leading-relaxed font-light">
                   We own the relationship, the trust, and the data layer. Capital follows where the customer leads — not the other way around.
                 </p>
               </div>
-              <div className="bg-white p-8 rounded-2xl shadow-sm border border-[#E8E2D8]">
+              <div className="bg-white p-8 rounded-2xl shadow-sm border border-purple-deep/10">
                 <h3 className="font-serif text-xl font-bold text-purple-deep mb-4">Built for Scale</h3>
-                <p className="text-slate-600 leading-relaxed font-light">
+                <p className="text-purple-deep/70 leading-relaxed font-light">
                   We are not building a niche product for a small community. We are building infrastructure for tens of millions of faith-conscious Nigerians — and anyone else who believes finance should be honest.
                 </p>
               </div>
@@ -181,20 +181,20 @@ export default function AboutView() {
       </section>
 
       {/* SECTION 7: LEADERSHIP */}
-      <section className="py-24 px-6 border-b border-[#E8E2D8] bg-white">
+      <section className="py-24 px-6 border-b border-purple-deep/10 bg-white">
         <div className="max-w-4xl mx-auto">
           <span className="text-xs font-semibold uppercase tracking-[0.25em] text-gold block mb-6 font-mono text-center">
             LEADERSHIP
           </span>
           {TEAM.map((member, idx) => (
-            <div key={idx} className="bg-cream border border-[#E8E2D8] p-10 rounded-3xl mt-12 flex flex-col md:flex-row gap-10 items-start">
+            <div key={idx} className="bg-cream border border-purple-deep/10 p-10 rounded-3xl mt-12 flex flex-col md:flex-row gap-10 items-start">
                <div className="w-24 h-24 bg-purple-deep rounded-full flex items-center justify-center text-4xl font-serif text-gold shrink-0">
                  {member.name.charAt(0)}
                </div>
                <div>
                   <h3 className="font-serif text-2xl font-bold text-purple-deep mb-2">{member.name}</h3>
-                  <div className="text-sm uppercase tracking-widest text-slate-500 font-mono mb-6">{member.role}</div>
-                  <div className="space-y-4 text-slate-700 leading-relaxed font-light">
+                  <div className="text-sm uppercase tracking-widest text-purple-deep/50 font-mono mb-6">{member.role}</div>
+                  <div className="space-y-4 text-purple-deep/90 leading-relaxed font-light">
                     <p>
                       Credence was not built from a whiteboard. It was built from lived experience — the frustration of watching capable, ambitious, faith-conscious Nigerians navigate a financial system that was not designed for them.
                     </p>
@@ -226,12 +226,12 @@ export default function AboutView() {
                    <div className="flex items-center justify-center w-10 h-10 rounded-full border border-gold bg-cream text-purple-deep shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 font-bold font-serif text-sm">
                      {ms.year.substring(2)}
                    </div>
-                   <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] p-6 rounded-2xl border border-[#E8E2D8] bg-white shadow-sm transition hover:border-gold/50 hover:shadow-md">
+                   <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] p-6 rounded-2xl border border-purple-deep/10 bg-white shadow-sm transition hover:border-gold/50 hover:shadow-md">
                       <div className="font-mono text-xs text-gold uppercase tracking-widest mb-2 flex items-center justify-between">
                          {ms.year}
                       </div>
                       <h3 className="font-bold text-purple-deep mb-2">{ms.title}</h3>
-                      <p className="text-slate-600 text-sm leading-relaxed">{ms.description}</p>
+                      <p className="text-purple-deep/70 text-sm leading-relaxed">{ms.description}</p>
                    </div>
                 </div>
              ))}
@@ -239,12 +239,12 @@ export default function AboutView() {
                    <div className="flex items-center justify-center w-10 h-10 rounded-full border border-gold bg-cream text-purple-deep shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 font-bold font-serif text-sm">
                      26
                    </div>
-                   <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] p-6 rounded-2xl border border-[#E8E2D8] bg-white shadow-sm transition hover:border-gold/50 hover:shadow-md border-b-[3px] border-b-gold">
+                   <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] p-6 rounded-2xl border border-purple-deep/10 bg-white shadow-sm transition hover:border-gold/50 hover:shadow-md border-b-[3px] border-b-gold">
                       <div className="font-mono text-xs text-gold uppercase tracking-widest mb-2 flex items-center justify-between">
                          2026
                       </div>
                       <h3 className="font-bold text-purple-deep mb-2">Growth Phase</h3>
-                      <p className="text-slate-600 text-sm leading-relaxed">Credence website and Umaiza AI Advisor launched. Growth phase begins.</p>
+                      <p className="text-purple-deep/70 text-sm leading-relaxed">Credence website and Umaiza AI Advisor launched. Growth phase begins.</p>
                    </div>
                 </div>
           </div>

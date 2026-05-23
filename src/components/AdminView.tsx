@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { User } from 'firebase/auth';
 import { initAuth, googleSignIn, logout, getAccessToken } from '../lib/firebase';
 import { FolderSync, FileText, UploadCloud, CheckCircle2, ShieldAlert } from 'lucide-react';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 export default function AdminView() {
   const [needsAuth, setNeedsAuth] = useState(true);
@@ -122,10 +123,10 @@ export default function AdminView() {
   if (needsAuth) {
     return (
       <div className="min-h-screen bg-cream flex flex-col items-center justify-center p-6">
-        <div className="bg-white rounded-2xl shadow-sm border border-[#E8E2D8] p-8 max-w-sm w-full text-center">
+        <div className="bg-white rounded-2xl shadow-sm border border-purple-deep/10 p-8 max-w-sm w-full text-center">
           <ShieldAlert className="w-12 h-12 text-gold mx-auto mb-4" />
           <h2 className="font-serif text-2xl font-bold text-purple-deep mb-2">Admin Portal</h2>
-          <p className="text-slate-600 mb-8 text-sm">Sign in with your Google Workspace account to manage Umaiza's Knowledge Base data.</p>
+          <p className="text-purple-deep/70 mb-8 text-sm">Sign in with your Google Workspace account to manage Umaiza's Knowledge Base data.</p>
           
           <button 
             onClick={handleLogin} 
@@ -151,23 +152,23 @@ export default function AdminView() {
       <div className="flex justify-between items-center mb-6">
         <div>
           <h1 className="font-serif text-3xl font-bold text-purple-deep mb-2">Admin Portal</h1>
-          <p className="text-slate-600">Manage Umaiza's Knowledge Base and view engagement analytics.</p>
+          <p className="text-purple-deep/70">Manage Umaiza's Knowledge Base and view engagement analytics.</p>
         </div>
-        <button onClick={handleLogout} className="text-sm font-semibold text-slate-500 hover:text-purple-deep transition">
+        <button onClick={handleLogout} className="text-sm font-semibold text-purple-deep/50 hover:text-purple-deep transition">
            Sign Out
         </button>
       </div>
       
-      <div className="flex gap-4 mb-8 border-b border-[#E8E2D8] pb-2">
+      <div className="flex gap-4 mb-8 border-b border-purple-deep/10 pb-2">
          <button 
            onClick={() => setActiveTab('kb')}
-           className={`font-semibold text-sm pb-2 border-b-2 transition ${activeTab === 'kb' ? 'border-gold text-purple-deep' : 'border-transparent text-slate-400 hover:text-slate-600'}`}
+           className={`font-semibold text-sm pb-2 border-b-2 transition ${activeTab === 'kb' ? 'border-gold text-purple-deep' : 'border-transparent text-purple-deep/40 hover:text-purple-deep/70'}`}
          >
            Knowledge Base
          </button>
          <button 
            onClick={() => setActiveTab('analytics')}
-           className={`font-semibold text-sm pb-2 border-b-2 transition ${activeTab === 'analytics' ? 'border-gold text-purple-deep' : 'border-transparent text-slate-400 hover:text-slate-600'}`}
+           className={`font-semibold text-sm pb-2 border-b-2 transition ${activeTab === 'analytics' ? 'border-gold text-purple-deep' : 'border-transparent text-purple-deep/40 hover:text-purple-deep/70'}`}
          >
            Analytics & Activity
          </button>
@@ -176,25 +177,25 @@ export default function AdminView() {
       {activeTab === 'kb' && (
       <div className="grid md:grid-cols-3 gap-8">
         {/* Sidebar / Controls */}
-        <div className="bg-white p-6 rounded-2xl border border-[#E8E2D8] shadow-sm h-fit">
+        <div className="bg-white p-6 rounded-2xl border border-purple-deep/10 shadow-sm h-fit">
           <h2 className="font-bold text-purple-deep mb-4 flex items-center gap-2">
             <UploadCloud className="w-5 h-5 text-gold" /> Import from Drive
           </h2>
           <div className="mb-4">
-             <label className="block text-xs font-semibold text-slate-500 uppercase tracking-widest mb-2">Folder ID</label>
+             <label className="block text-xs font-semibold text-purple-deep/50 uppercase tracking-widest mb-2">Folder ID</label>
              <input 
                type="text" 
                placeholder="1A2b3C4d5E..." 
                value={driveFolderId}
                onChange={(e) => setDriveFolderId(e.target.value)}
-               className="w-full px-4 py-2 border border-[#E8E2D8] rounded-lg text-sm bg-cream focus:outline-none focus:border-gold"
+               className="w-full px-4 py-2 border border-purple-deep/10 rounded-lg text-sm bg-cream focus:outline-none focus:border-gold"
              />
-             <p className="text-xs text-slate-400 mt-2">Open the folder in Drive and copy the ID from the URL.</p>
+             <p className="text-xs text-purple-deep/40 mt-2">Open the folder in Drive and copy the ID from the URL.</p>
           </div>
           <button 
             onClick={fetchDriveFiles} 
             disabled={isLoading || !driveFolderId}
-            className="w-full bg-purple-deep text-white font-bold py-2.5 rounded-lg text-sm hover:bg-[#1E0A4E]/90 transition disabled:opacity-50"
+            className="w-full bg-purple-deep text-white font-bold py-2.5 rounded-lg text-sm hover:bg-purple-deep/90 transition disabled:opacity-50"
           >
             {isLoading ? "Fetching..." : "Fetch Files"}
           </button>
@@ -202,7 +203,7 @@ export default function AdminView() {
 
         {/* File List */}
         <div className="md:col-span-2">
-           <div className="bg-white p-6 rounded-2xl border border-[#E8E2D8] shadow-sm min-h-[400px]">
+           <div className="bg-white p-6 rounded-2xl border border-purple-deep/10 shadow-sm min-h-[400px]">
              {importStatus && (
                <div className="mb-4 bg-cream/50 text-purple-deep text-sm font-medium p-3 rounded-lg border border-gold/20 flex items-center gap-2">
                   <CheckCircle2 className="w-5 h-5 text-gold" />
@@ -210,22 +211,22 @@ export default function AdminView() {
                </div>
              )}
              
-             <h2 className="font-bold text-purple-deep mb-4 border-b border-[#E8E2D8] pb-3">Available Documents</h2>
+             <h2 className="font-bold text-purple-deep mb-4 border-b border-purple-deep/10 pb-3">Available Documents</h2>
              
              {files.length === 0 ? (
-                <div className="text-center text-slate-400 py-12 flex flex-col items-center gap-3">
+                <div className="text-center text-purple-deep/40 py-12 flex flex-col items-center gap-3">
                    <FolderSync className="w-8 h-8 opacity-50" />
                    <p className="text-sm">No files fetched yet or folder is empty.</p>
                 </div>
              ) : (
                 <ul className="space-y-3">
                    {files.map(file => (
-                     <li key={file.id} className="flex justify-between items-center p-4 border border-[#E8E2D8] rounded-xl hover:border-gold/30 transition">
+                     <li key={file.id} className="flex justify-between items-center p-4 border border-purple-deep/10 rounded-xl hover:border-gold/30 transition">
                         <div className="flex items-center gap-3">
                           <FileText className="w-5 h-5 text-gold shrink-0" />
                           <div>
                             <p className="font-semibold text-sm text-purple-deep line-clamp-1">{file.name}</p>
-                            <p className="text-xs text-slate-400 font-mono mt-0.5">{file.mimeType}</p>
+                            <p className="text-xs text-purple-deep/40 font-mono mt-0.5">{file.mimeType}</p>
                           </div>
                         </div>
                         <button 
@@ -243,38 +244,73 @@ export default function AdminView() {
       </div>
       )}
       {activeTab === 'analytics' && (
-        <div className="bg-white p-8 rounded-2xl border border-[#E8E2D8] shadow-sm">
+        <div className="bg-white p-8 rounded-2xl border border-purple-deep/10 shadow-sm">
            <h2 className="font-bold text-2xl text-purple-deep mb-6">Platform Analytics</h2>
            {!analyticsData ? (
-             <p className="text-slate-500">Loading analytics...</p>
+             <p className="text-purple-deep/50">Loading analytics...</p>
            ) : (
              <>
                <div className="grid md:grid-cols-3 gap-6 mb-10">
                  <div className="bg-cream/50 p-6 rounded-xl border border-gold/20 flex flex-col items-center">
-                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-widest mb-2">Total Queries</p>
+                    <p className="text-xs font-semibold text-purple-deep/50 uppercase tracking-widest mb-2">Total Queries</p>
                     <p className="text-4xl font-serif text-purple-deep font-bold">{analyticsData.totalChatQueries || 0}</p>
                  </div>
                  <div className="bg-cream/50 p-6 rounded-xl border border-gold/20 flex flex-col items-center">
-                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-widest mb-2">Waitlist Signups</p>
+                    <p className="text-xs font-semibold text-purple-deep/50 uppercase tracking-widest mb-2">Waitlist Signups</p>
                     <p className="text-4xl font-serif text-purple-deep font-bold">{analyticsData.totalWaitlist || 0}</p>
                  </div>
                  <div className="bg-cream/50 p-6 rounded-xl border border-gold/20 flex flex-col items-center">
-                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-widest mb-2">Active Leads</p>
+                    <p className="text-xs font-semibold text-purple-deep/50 uppercase tracking-widest mb-2">Active Leads</p>
                     <p className="text-4xl font-serif text-purple-deep font-bold">{analyticsData.totalLeads || 0}</p>
                  </div>
                </div>
+
+               {analyticsData.last7DaysActivity && (
+                 <div className="mb-10 p-6 border border-purple-deep/10 rounded-xl bg-white shadow-sm">
+                   <h3 className="font-bold text-purple-deep mb-6">Queries Over Last 7 Days</h3>
+                   <div className="h-[300px] w-full">
+                     <ResponsiveContainer width="100%" height="100%">
+                       <BarChart data={analyticsData.last7DaysActivity} margin={{ top: 5, right: 20, bottom: 5, left: -20 }}>
+                         <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E8E2D8" />
+                         <XAxis 
+                           dataKey="date" 
+                           axisLine={false} 
+                           tickLine={false} 
+                           tick={{ fill: '#64748b', fontSize: 12 }} 
+                           tickFormatter={(value) => {
+                             const date = new Date(value);
+                             return date.toLocaleDateString('en-US', { weekday: 'short' });
+                           }}
+                         />
+                         <YAxis 
+                           allowDecimals={false} 
+                           axisLine={false} 
+                           tickLine={false} 
+                           tick={{ fill: '#64748b', fontSize: 12 }} 
+                         />
+                         <Tooltip 
+                            cursor={{ fill: '#f8fafc' }}
+                            contentStyle={{ borderRadius: '8px', border: '1px solid #E8E2D8', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
+                            labelFormatter={(label) => new Date(label).toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })}
+                         />
+                         <Bar dataKey="count" fill="#D4A843" radius={[4, 4, 0, 0]} maxBarSize={50} />
+                       </BarChart>
+                     </ResponsiveContainer>
+                   </div>
+                 </div>
+               )}
                
-               <h3 className="font-bold text-purple-deep mb-4 border-b border-[#E8E2D8] pb-3">Recent Queries</h3>
+               <h3 className="font-bold text-purple-deep mb-4 border-b border-purple-deep/10 pb-3">Recent Queries</h3>
                <div className="space-y-4 max-h-[400px] overflow-y-auto pr-2">
                   {analyticsData.recentQueries && analyticsData.recentQueries.length > 0 ? analyticsData.recentQueries.map((q: any) => (
-                    <div key={q.id} className="p-4 border border-[#E8E2D8] rounded-xl flex gap-3 text-sm">
+                    <div key={q.id} className="p-4 border border-purple-deep/10 rounded-xl flex gap-3 text-sm">
                       <div className="text-gold mt-0.5">Q:</div>
                       <div className="flex-1">
                         <p className="text-purple-deep font-medium">{q.query}</p>
                       </div>
                     </div>
                   )) : (
-                    <p className="text-slate-500 text-sm italic">No recent queries found.</p>
+                    <p className="text-purple-deep/50 text-sm italic">No recent queries found.</p>
                   )}
                </div>
              </>

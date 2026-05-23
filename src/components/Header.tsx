@@ -1,20 +1,22 @@
 import React, { useState } from "react";
-import { Menu, X, Sparkles, Receipt, Coins, ShieldCheck, Compass } from "lucide-react";
+import { Menu, X, Sparkles, Receipt, Coins, ShieldCheck, Compass, Moon, Sun } from "lucide-react";
 
 interface HeaderProps {
   currentTab: string;
   setCurrentTab: (tab: string) => void;
+  isDarkTheme: boolean;
+  setTheme: (isDark: boolean) => void;
 }
 
-export default function Header({ currentTab, setCurrentTab }: HeaderProps) {
+export default function Header({ currentTab, setCurrentTab, isDarkTheme, setTheme }: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const isDark = currentTab === "advisor";
 
   const navigation = [
+    { id: "umaiza", label: "Umaiza" },
     { id: "about", label: "About" },
     { id: "products", label: "Products" },
     { id: "build", label: "Build With Credence" },
-    { id: "contact", label: "Contact" },
   ];
 
   const handleNavClick = (id: string) => {
@@ -24,7 +26,7 @@ export default function Header({ currentTab, setCurrentTab }: HeaderProps) {
   };
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isDark ? 'bg-[#1E0A4E]' : 'bg-cream/90 backdrop-blur-md border-b border-[#E8E2D8]'}`}>
+    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isDark ? 'bg-purple-deep' : 'bg-cream/90 backdrop-blur-md border-b border-purple-deep/10'}`}>
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
         {/* Logo */}
         <button
@@ -55,8 +57,18 @@ export default function Header({ currentTab, setCurrentTab }: HeaderProps) {
 
         {/* CTA Button */}
         <div className="flex items-center gap-3">
+          <button 
+            onClick={() => setTheme(!isDarkTheme)}
+            className={`p-2 focus:outline-none transition rounded-full ${
+              isDark ? 'text-gold hover:bg-white/10' : 'text-purple-deep hover:bg-purple-deep/10'
+            }`}
+            aria-label="Toggle Dark Theme"
+          >
+            {isDarkTheme ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+          </button>
+
           <button
-            onClick={() => handleNavClick("contact")}
+            onClick={() => handleNavClick("umaiza")}
             className={`hidden rounded-full px-6 py-2.5 text-xs font-bold shadow-[0_2px_10px_rgba(0,0,0,0.1)] transition-all hover:scale-105 active:scale-95 sm:inline-flex cursor-pointer ${
               isDark ? 'bg-white text-purple-deep hover:bg-white/90' : 'bg-purple-deep text-white hover:bg-purple-deep/90'
             }`}
@@ -80,7 +92,7 @@ export default function Header({ currentTab, setCurrentTab }: HeaderProps) {
       {/* Mobile Sliding Drawer */}
       {mobileMenuOpen && (
         <div className={`absolute top-18 left-4 right-4 z-40 rounded-2xl p-6 shadow-2xl lg:hidden ${
-          isDark ? 'bg-purple-deep border border-white/10' : 'bg-white border border-[#E8E2D8]'
+          isDark ? 'bg-purple-deep border border-white/10' : 'bg-white border border-purple-deep/10'
         }`}>
           <nav className="flex flex-col gap-4">
             {navigation.map((item) => (
@@ -90,14 +102,14 @@ export default function Header({ currentTab, setCurrentTab }: HeaderProps) {
                 className={`py-2 text-left text-sm font-medium transition ${
                   currentTab === item.id
                     ? `font-semibold pl-2 border-l-2 ${isDark ? 'text-gold border-gold' : 'text-purple-deep border-purple-deep'}`
-                    : `${isDark ? 'text-white/70 hover:text-white' : 'text-slate-600 hover:text-purple-deep'}`
+                    : `${isDark ? 'text-white/70 hover:text-white' : 'text-purple-deep/70 hover:text-purple-deep'}`
                 }`}
               >
                 {item.label}
               </button>
             ))}
             <button
-              onClick={() => handleNavClick("contact")}
+              onClick={() => handleNavClick("umaiza")}
               className={`mt-4 w-full rounded-full py-3 text-center text-sm font-semibold transition duration-150 ${
                 isDark ? 'bg-white text-purple-deep hover:bg-white/90' : 'bg-purple-deep text-white hover:bg-purple-deep/90'
               }`}

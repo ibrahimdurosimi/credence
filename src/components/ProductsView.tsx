@@ -57,41 +57,41 @@ export default function ProductsView({ setCurrentTab }: { setCurrentTab: (tab: s
         {/* TERRITORY 1 - LIFESTYLE */}
         <section className="py-20 lg:py-32 flex flex-col lg:flex-row gap-16 lg:items-start group">
           <div className="lg:sticky lg:top-32 lg:w-1/3">
-             <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-[#1E0A4E]/5 text-gold mb-8 group-hover:bg-[#1E0A4E] transition-colors">
+             <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-purple-deep/5 text-gold mb-8 group-hover:bg-purple-deep transition-colors">
                <Plane className="h-8 w-8" />
              </div>
              <h2 className="font-serif text-4xl font-bold text-purple-deep mb-6">Lifestyle</h2>
              <div className="text-xs font-semibold uppercase tracking-[0.2em] text-gold mb-4 font-mono">
                Faith, Growth & Experience
              </div>
-             <p className="text-slate-600 leading-relaxed mb-6">
+             <p className="text-purple-deep/70 leading-relaxed mb-6">
                For the moments that define who you are. Umrah is not a luxury — it is an obligation. Education is not optional — it is investment. These are the things worth financing with integrity.
              </p>
           </div>
           <div className="lg:w-2/3 space-y-12">
-             <div className="bg-white rounded-3xl p-8 lg:p-12 shadow-sm border border-[#E8E2D8]">
+             <div className="bg-white rounded-3xl p-8 lg:p-12 shadow-sm border border-purple-deep/10">
                <h3 className="font-serif text-2xl font-bold text-purple-deep mb-4 flex items-center justify-between">
                  Umrah Financing <span className="text-[10px] bg-emerald-100 text-emerald-800 font-mono tracking-widest px-3 py-1.5 rounded-full uppercase">Live Now</span>
                </h3>
-               <p className="text-slate-600 mb-8 border-b border-[#E8E2D8] pb-6">
+               <p className="text-purple-deep/70 mb-8 border-b border-purple-deep/10 pb-6">
                  Perform your holy pilgrimage today without financial burden. Structure: <strong>Murabaha</strong> (cost-plus).
                </p>
                <h4 className="text-xs font-bold text-purple-deep uppercase tracking-[0.1em] mb-4">Coming Soon in Lifestyle</h4>
                <ul className="space-y-4 text-sm font-medium">
-                 <li className="flex justify-between items-center text-slate-700">Hajj Financing <span className="text-[10px] text-slate-500 font-mono">Q4 2026</span></li>
-                 <li className="flex justify-between items-center text-slate-700">Studies Financing <span className="text-[10px] text-slate-500 font-mono">2027</span></li>
-                 <li className="flex justify-between items-center text-slate-700">Personal Travel <span className="text-[10px] text-slate-500 font-mono">2028</span></li>
+                 <li className="flex justify-between items-center text-purple-deep/90">Hajj Financing <span className="text-[10px] text-purple-deep/50 font-mono">Q4 2026</span></li>
+                 <li className="flex justify-between items-center text-purple-deep/90">Studies Financing <span className="text-[10px] text-purple-deep/50 font-mono">2027</span></li>
+                 <li className="flex justify-between items-center text-purple-deep/90">Personal Travel <span className="text-[10px] text-purple-deep/50 font-mono">2028</span></li>
                </ul>
              </div>
              
-             <div className="grid sm:grid-cols-2 gap-8 bg-cream p-8 rounded-3xl border border-[#E8E2D8]">
+             <div className="grid sm:grid-cols-2 gap-8 bg-cream p-8 rounded-3xl border border-purple-deep/10">
                <div>
                   <h4 className="text-sm font-bold text-purple-deep mb-2 font-serif">Who this is for:</h4>
-                  <p className="text-sm text-slate-600 leading-relaxed">The faith-conscious professional who wants to fulfil their spiritual and personal ambitions without waiting years to save — and without the guilt of interest.</p>
+                  <p className="text-sm text-purple-deep/70 leading-relaxed">The faith-conscious professional who wants to fulfil their spiritual and personal ambitions without waiting years to save — and without the guilt of interest.</p>
                </div>
                <div>
                   <h4 className="text-sm font-bold text-purple-deep mb-2 font-serif">How it works:</h4>
-                  <p className="text-sm text-slate-600 leading-relaxed">All Lifestyle products use <strong>Murabaha</strong> — a cost-plus structure where the price is agreed upfront and never changes.</p>
+                  <p className="text-sm text-purple-deep/70 leading-relaxed">All Lifestyle products use <strong>Murabaha</strong> — a cost-plus structure where the price is agreed upfront and never changes.</p>
                </div>
              </div>
           </div>
@@ -100,51 +100,51 @@ export default function ProductsView({ setCurrentTab }: { setCurrentTab: (tab: s
         {/* TERRITORY 2 - HOUSEHOLD */}
         <section className="py-20 lg:py-32 flex flex-col lg:flex-row gap-16 lg:items-start group">
           <div className="lg:sticky lg:top-32 lg:w-1/3">
-             <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-[#1E0A4E]/5 text-gold mb-8 group-hover:bg-[#1E0A4E] transition-colors">
+             <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-purple-deep/5 text-gold mb-8 group-hover:bg-purple-deep transition-colors">
                <House className="h-8 w-8" />
              </div>
              <h2 className="font-serif text-4xl font-bold text-purple-deep mb-6">Household</h2>
              <div className="text-xs font-semibold uppercase tracking-[0.2em] text-gold mb-4 font-mono">
                Family, Home & Essentials
              </div>
-             <p className="text-slate-600 leading-relaxed mb-6">
+             <p className="text-purple-deep/70 leading-relaxed mb-6">
                A home should be a sanctuary, not a source of financial stress. Generator fuel costs are eating Nigerian family budgets alive. These are the essentials that deserve ethical financing.
              </p>
           </div>
           <div className="lg:w-2/3 space-y-12">
-             <div className="bg-white rounded-3xl p-8 lg:p-12 shadow-sm border border-[#E8E2D8]">
+             <div className="bg-white rounded-3xl p-8 lg:p-12 shadow-sm border border-purple-deep/10">
                <h3 className="font-serif text-2xl font-bold text-purple-deep mb-4 flex items-center justify-between">
                  Solar / Renewable Energy <span className="text-[10px] bg-amber-100 text-amber-800 font-mono tracking-widest px-3 py-1.5 rounded-full uppercase">Pilot Q3 2026</span>
                </h3>
-               <p className="text-slate-600 mb-8 border-b border-[#E8E2D8] pb-6">
+               <p className="text-purple-deep/70 mb-8 border-b border-purple-deep/10 pb-6">
                  Power your home with clean, constant solar energy. Swap generator fuel for transparent installments.
                </p>
                <h3 className="font-serif text-2xl font-bold text-purple-deep mb-4 flex items-center justify-between mt-6">
                  Rent Financing <span className="text-[10px] bg-amber-100 text-amber-800 font-mono tracking-widest px-3 py-1.5 rounded-full uppercase">Q4 2026</span>
                </h3>
-               <p className="text-slate-600 mb-8 border-b border-[#E8E2D8] pb-6">
+               <p className="text-purple-deep/70 mb-8 border-b border-purple-deep/10 pb-6">
                  Eliminate the painful 1-year upfront rent cycle. Credence pays your landlord upfront; you repay us monthly.
                </p>
                
                <h4 className="text-xs font-bold text-purple-deep uppercase tracking-[0.1em] mb-4">Coming Soon in Household</h4>
                <ul className="space-y-4 text-sm font-medium">
-                 <li className="flex justify-between items-center text-slate-700">Auto Financing <span className="text-[10px] text-slate-500 font-mono">2027</span></li>
-                 <li className="flex justify-between items-center text-slate-700">Housing Down Payment <span className="text-[10px] text-slate-500 font-mono">2027</span></li>
-                 <li className="flex justify-between items-center text-slate-700">Nikkah / Wedding Financing <span className="text-[10px] text-slate-500 font-mono">2027</span></li>
-                 <li className="flex justify-between items-center text-slate-700">School Fees <span className="text-[10px] text-slate-500 font-mono">2027</span></li>
-                 <li className="flex justify-between items-center text-slate-700">Healthcare <span className="text-[10px] text-slate-500 font-mono">2028</span></li>
-                 <li className="flex justify-between items-center text-slate-700">Home Appliances <span className="text-[10px] text-slate-500 font-mono">2028</span></li>
+                 <li className="flex justify-between items-center text-purple-deep/90">Auto Financing <span className="text-[10px] text-purple-deep/50 font-mono">2027</span></li>
+                 <li className="flex justify-between items-center text-purple-deep/90">Housing Down Payment <span className="text-[10px] text-purple-deep/50 font-mono">2027</span></li>
+                 <li className="flex justify-between items-center text-purple-deep/90">Nikkah / Wedding Financing <span className="text-[10px] text-purple-deep/50 font-mono">2027</span></li>
+                 <li className="flex justify-between items-center text-purple-deep/90">School Fees <span className="text-[10px] text-purple-deep/50 font-mono">2027</span></li>
+                 <li className="flex justify-between items-center text-purple-deep/90">Healthcare <span className="text-[10px] text-purple-deep/50 font-mono">2028</span></li>
+                 <li className="flex justify-between items-center text-purple-deep/90">Home Appliances <span className="text-[10px] text-purple-deep/50 font-mono">2028</span></li>
                </ul>
              </div>
              
-             <div className="grid sm:grid-cols-2 gap-8 bg-cream p-8 rounded-3xl border border-[#E8E2D8]">
+             <div className="grid sm:grid-cols-2 gap-8 bg-cream p-8 rounded-3xl border border-purple-deep/10">
                <div>
                   <h4 className="text-sm font-bold text-purple-deep mb-2 font-serif">Who this is for:</h4>
-                  <p className="text-sm text-slate-600 leading-relaxed">The Nigerian family building their foundation — managing a home, raising children, and trying to make smart financial decisions that don't compromise their values.</p>
+                  <p className="text-sm text-purple-deep/70 leading-relaxed">The Nigerian family building their foundation — managing a home, raising children, and trying to make smart financial decisions that don't compromise their values.</p>
                </div>
                <div>
                   <h4 className="text-sm font-bold text-purple-deep mb-2 font-serif">How it works:</h4>
-                  <p className="text-sm text-slate-600 leading-relaxed">Household products use a mix of <strong>Murabaha</strong> (for goods) and <strong>Ijarah</strong> (for assets like solar and auto) — both fully Shariah-compliant structures.</p>
+                  <p className="text-sm text-purple-deep/70 leading-relaxed">Household products use a mix of <strong>Murabaha</strong> (for goods) and <strong>Ijarah</strong> (for assets like solar and auto) — both fully Shariah-compliant structures.</p>
                </div>
              </div>
           </div>
@@ -153,36 +153,36 @@ export default function ProductsView({ setCurrentTab }: { setCurrentTab: (tab: s
         {/* TERRITORY 3 - BUSINESS */}
         <section className="py-20 lg:py-32 flex flex-col lg:flex-row gap-16 lg:items-start group">
           <div className="lg:sticky lg:top-32 lg:w-1/3">
-             <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-[#1E0A4E]/5 text-gold mb-8 group-hover:bg-[#1E0A4E] transition-colors">
+             <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-purple-deep/5 text-gold mb-8 group-hover:bg-purple-deep transition-colors">
                <Briefcase className="h-8 w-8" />
              </div>
              <h2 className="font-serif text-4xl font-bold text-purple-deep mb-6">Business</h2>
              <div className="text-xs font-semibold uppercase tracking-[0.2em] text-gold mb-4 font-mono">
                SME Capital & Growth
              </div>
-             <p className="text-slate-600 leading-relaxed mb-6">
+             <p className="text-purple-deep/70 leading-relaxed mb-6">
                Nigerian small businesses are the engine of the economy. But access to ethical working capital is almost non-existent at the SME level. Credence is changing that.
              </p>
           </div>
           <div className="lg:w-2/3 space-y-12">
-             <div className="bg-white rounded-3xl p-8 lg:p-12 shadow-sm border border-[#E8E2D8]">
+             <div className="bg-white rounded-3xl p-8 lg:p-12 shadow-sm border border-purple-deep/10">
                <h4 className="text-xs font-bold text-purple-deep uppercase tracking-[0.1em] mb-4">Coming Soon in Business</h4>
-               <ul className="space-y-4 text-sm font-medium border-b border-[#E8E2D8] pb-8 mb-8">
-                 <li className="flex justify-between items-center text-slate-700">SME Inventory Financing <span className="text-[10px] text-slate-500 font-mono">2027</span></li>
-                 <li className="flex justify-between items-center text-slate-700">Equipment Financing <span className="text-[10px] text-slate-500 font-mono">2027</span></li>
-                 <li className="flex justify-between items-center text-slate-700">Working Capital <span className="text-[10px] text-slate-500 font-mono">2028</span></li>
-                 <li className="flex justify-between items-center text-slate-700">Vocational Training <span className="text-[10px] text-slate-500 font-mono">2028</span></li>
+               <ul className="space-y-4 text-sm font-medium border-b border-purple-deep/10 pb-8 mb-8">
+                 <li className="flex justify-between items-center text-purple-deep/90">SME Inventory Financing <span className="text-[10px] text-purple-deep/50 font-mono">2027</span></li>
+                 <li className="flex justify-between items-center text-purple-deep/90">Equipment Financing <span className="text-[10px] text-purple-deep/50 font-mono">2027</span></li>
+                 <li className="flex justify-between items-center text-purple-deep/90">Working Capital <span className="text-[10px] text-purple-deep/50 font-mono">2028</span></li>
+                 <li className="flex justify-between items-center text-purple-deep/90">Vocational Training <span className="text-[10px] text-purple-deep/50 font-mono">2028</span></li>
                </ul>
              </div>
              
-             <div className="grid sm:grid-cols-2 gap-8 bg-cream p-8 rounded-3xl border border-[#E8E2D8]">
+             <div className="grid sm:grid-cols-2 gap-8 bg-cream p-8 rounded-3xl border border-purple-deep/10">
                <div>
                   <h4 className="text-sm font-bold text-purple-deep mb-2 font-serif">Who this is for:</h4>
-                  <p className="text-sm text-slate-600 leading-relaxed">The Muslim entrepreneur who refuses to grow their business on interest-based debt — and has been waiting for an ethical alternative that actually works.</p>
+                  <p className="text-sm text-purple-deep/70 leading-relaxed">The Muslim entrepreneur who refuses to grow their business on interest-based debt — and has been waiting for an ethical alternative that actually works.</p>
                </div>
                <div>
                   <h4 className="text-sm font-bold text-purple-deep mb-2 font-serif">How it works:</h4>
-                  <p className="text-sm text-slate-600 leading-relaxed">Business products use <strong>Murabaha</strong> for inventory and equipment, and <strong>Musharaka</strong> (partnership financing) for working capital — structures that align the interests of lender and borrower.</p>
+                  <p className="text-sm text-purple-deep/70 leading-relaxed">Business products use <strong>Murabaha</strong> for inventory and equipment, and <strong>Musharaka</strong> (partnership financing) for working capital — structures that align the interests of lender and borrower.</p>
                </div>
              </div>
           </div>
@@ -191,10 +191,10 @@ export default function ProductsView({ setCurrentTab }: { setCurrentTab: (tab: s
       </div>
 
       {/* CALCULATOR TOOL SECTION */}
-      <section className="bg-[#FAF8F5] py-24 px-6 border-y border-[#E8E2D8]" id="calculator">
+      <section className="bg-[#FAF8F5] py-24 px-6 border-y border-purple-deep/10" id="calculator">
         <div className="max-w-7xl mx-auto">
           
-          <div className="bg-white rounded-3xl p-8 lg:p-12 shadow-sm border border-[#E8E2D8] flex flex-col lg:flex-row gap-12 lg:gap-16">
+          <div className="bg-white rounded-3xl p-8 lg:p-12 shadow-sm border border-purple-deep/10 flex flex-col lg:flex-row gap-12 lg:gap-16">
             
             {/* Left Column */}
             <div className="flex-1 space-y-12">
@@ -206,7 +206,7 @@ export default function ProductsView({ setCurrentTab }: { setCurrentTab: (tab: s
                 <h2 className="font-serif text-3xl lg:text-4xl font-bold text-purple-deep mt-4 mb-4">
                    Interactive Murabaha Calculator
                 </h2>
-                <p className="text-slate-600 text-sm leading-relaxed max-w-2xl">
+                <p className="text-purple-deep/70 text-sm leading-relaxed max-w-2xl">
                    Halal financing uses "Murabaha" (cost-plus cost deferred trade). We purchase the item for you and sell it to you at cost plus a fixed flat profit margin pre-agreed. No variable fees.
                 </p>
               </div>
@@ -219,14 +219,14 @@ export default function ProductsView({ setCurrentTab }: { setCurrentTab: (tab: s
                     <button 
                       key={p.id}
                       onClick={() => handleSelectProductGrid(p)}
-                      className={`flex items-start gap-4 p-5 rounded-2xl border text-left transition-all ${selectedProduct.id === p.id ? 'border-gold bg-gold/5 ring-1 ring-gold/20' : 'border-[#E8E2D8] hover:border-gold/30 hover:bg-cream'}`}
+                      className={`flex items-start gap-4 p-5 rounded-2xl border text-left transition-all ${selectedProduct.id === p.id ? 'border-gold bg-gold/5 ring-1 ring-gold/20' : 'border-purple-deep/10 hover:border-gold/30 hover:bg-cream'}`}
                     >
-                      <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-cream text-purple-deep shrink-0 shadow-sm border border-[#E8E2D8]">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-cream text-purple-deep shrink-0 shadow-sm border border-purple-deep/10">
                          {getProductIcon(p.id)}
                       </div>
                       <div>
                         <div className="font-bold text-sm text-purple-deep mb-1">{p.name}</div>
-                        <div className="text-[10px] text-slate-500 font-mono uppercase">{p.statusText}</div>
+                        <div className="text-[10px] text-purple-deep/50 font-mono uppercase">{p.statusText}</div>
                       </div>
                     </button>
                   ))}
@@ -252,7 +252,7 @@ export default function ProductsView({ setCurrentTab }: { setCurrentTab: (tab: s
                         className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-gold" 
                       />
                     </div>
-                    <div className="flex justify-between mt-3 text-[10px] uppercase font-mono text-slate-400">
+                    <div className="flex justify-between mt-3 text-[10px] uppercase font-mono text-purple-deep/40">
                        <span>Min: ₦{(Math.max(100000, selectedProduct.itemCost / 2)).toLocaleString()}</span>
                        <span>Max: ₦{(selectedProduct.itemCost * 2).toLocaleString()}</span>
                     </div>
@@ -274,7 +274,7 @@ export default function ProductsView({ setCurrentTab }: { setCurrentTab: (tab: s
                         className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-gold" 
                       />
                     </div>
-                    <div className="flex justify-between mt-3 text-[10px] uppercase font-mono text-slate-400">
+                    <div className="flex justify-between mt-3 text-[10px] uppercase font-mono text-purple-deep/40">
                        <span>Minimum Required: {selectedProduct.downPaymentPct}%</span>
                        <span>Max: 80%</span>
                     </div>
@@ -288,7 +288,7 @@ export default function ProductsView({ setCurrentTab }: { setCurrentTab: (tab: s
                           <button 
                             key={t}
                             onClick={() => setCalcTenure(t)}
-                            className={`px-5 py-2.5 text-xs font-mono font-medium rounded-xl border transition-all ${calcTenure === t ? 'bg-[#1E0A4E] text-white border-[#1E0A4E] shadow-md' : 'bg-transparent text-purple-deep border-[#E8E2D8] hover:border-purple-deep/30'}`}
+                            className={`px-5 py-2.5 text-xs font-mono font-medium rounded-xl border transition-all ${calcTenure === t ? 'bg-purple-deep text-white border-[#1E0A4E] shadow-md' : 'bg-transparent text-purple-deep border-purple-deep/10 hover:border-purple-deep/30'}`}
                           >
                             {t} Months
                           </button>
@@ -299,7 +299,7 @@ export default function ProductsView({ setCurrentTab }: { setCurrentTab: (tab: s
             </div>
 
             {/* Right Column */}
-            <div className="lg:w-[420px] bg-[#1E0A4E] rounded-[2rem] p-8 lg:p-10 text-white flex flex-col justify-between shrink-0 shadow-xl overflow-hidden relative">
+            <div className="lg:w-[420px] bg-purple-deep rounded-[2rem] p-8 lg:p-10 text-white flex flex-col justify-between shrink-0 shadow-xl overflow-hidden relative">
               <div className="absolute top-0 right-0 p-32 bg-white/5 blur-3xl rounded-full translate-x-1/3 -translate-y-1/3 pointer-events-none"></div>
               
               <div className="relative z-10">
@@ -347,8 +347,8 @@ export default function ProductsView({ setCurrentTab }: { setCurrentTab: (tab: s
                 </div>
                 
                 <button 
-                  onClick={() => setCurrentTab('advisor')}
-                  className="w-full bg-gold hover:bg-yellow-500 text-[#1E0A4E] font-bold py-4 rounded-xl transition-all shadow-lg hover:shadow-xl active:scale-[0.98] font-sans"
+                  onClick={() => setCurrentTab('umaiza')}
+                  className="w-full bg-gold hover:bg-yellow-500 text-purple-deep font-bold py-4 rounded-xl transition-all shadow-lg hover:shadow-xl active:scale-[0.98] font-sans"
                 >
                    Apply for pre-qualification
                 </button>
@@ -360,17 +360,17 @@ export default function ProductsView({ setCurrentTab }: { setCurrentTab: (tab: s
       </section>
 
       {/* PARTNER WITH US */}
-      <section className="bg-cream py-24 px-6 border-b border-[#E8E2D8]">
+      <section className="bg-cream py-24 px-6 border-b border-purple-deep/10">
         <div className="max-w-3xl mx-auto text-center">
              <h2 className="font-serif text-3xl md:text-4xl font-bold text-purple-deep mb-6">
                Are you a merchant, capital provider, or institution?
              </h2>
-             <p className="text-slate-600 leading-relaxed text-lg mb-8 max-w-xl mx-auto">
+             <p className="text-purple-deep/70 leading-relaxed text-lg mb-8 max-w-xl mx-auto">
                 Credence is actively onboarding partners across all three territories. If you serve any of the needs above — let's talk.
              </p>
              <button
                onClick={() => setCurrentTab("build")}
-               className="inline-flex items-center gap-2 rounded-full border border-purple-deep bg-purple-deep text-white px-8 py-3.5 text-sm font-bold hover:bg-[#1E0A4E] transition cursor-pointer"
+               className="inline-flex items-center gap-2 rounded-full border border-purple-deep bg-purple-deep text-white px-8 py-3.5 text-sm font-bold hover:bg-purple-deep transition cursor-pointer"
              >
                Build With Credence <ArrowRight className="h-4 w-4" />
              </button>
@@ -387,7 +387,7 @@ export default function ProductsView({ setCurrentTab }: { setCurrentTab: (tab: s
                 Join the waitlist and be first to know when your category launches.
              </p>
              <button
-               onClick={() => setCurrentTab("advisor")}
+               onClick={() => setCurrentTab("umaiza")}
                className="inline-flex items-center gap-2 rounded-full bg-white text-purple-deep px-8 py-3.5 text-sm font-bold hover:scale-105 active:scale-95 transition-all shadow-xl cursor-pointer"
              >
                Join Waitlist <ArrowRight className="h-4 w-4" />

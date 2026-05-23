@@ -64,6 +64,19 @@ function getDb() {
   return db;
 }
 
+function cosineSimilarity(vecA: number[], vecB: number[]): number {
+  if (!vecA || !vecB || vecA.length !== vecB.length) return 0;
+  let dotProduct = 0;
+  let normA = 0;
+  let normB = 0;
+  for (let i = 0; i < vecA.length; i++) {
+    dotProduct += vecA[i] * vecB[i];
+    normA += vecA[i] * vecA[i];
+    normB += vecB[i] * vecB[i];
+  }
+  return dotProduct / (Math.sqrt(normA) * Math.sqrt(normB) || 1);
+}
+
 async function searchKnowledgeBase(query: string): Promise<string> {
   const lowercaseQuery = query.toLowerCase();
   const searchTerms = lowercaseQuery.split(' ').filter(w => w.length > 3);
@@ -71,28 +84,67 @@ async function searchKnowledgeBase(query: string): Promise<string> {
 
   const db = getDb();
   if (db) {
+    let queryEmbedding: number[] | null = null;
+    const aiApiKey = process.env.GEMINI_API_KEY;
+    if (aiApiKey) {
+       try {
+         const ai = new GoogleGenAI({ apiKey: aiApiKey });
+         const response = await ai.models.embedContent({
+           model: "gemini-embedding-2",
+           contents: query
+         });
+         const vals = response.embeddings?.[0]?.values;
+         if (vals) queryEmbedding = vals;
+       } catch(e) {
+         console.warn("Embedding query failed, falling back to keyword search", e);
+       }
+    }
+
     try {
-      const kbSnapshot = await db.collection("knowledge_base").orderBy("timestamp", "desc").limit(50).get();
-      kbSnapshot.forEach(doc => {
-        const data = doc.data();
-        if (data.content) {
-          // Find the first term that matches to center the snippet
-          let matchIndex = -1;
-          for (const term of searchTerms) {
-            matchIndex = data.content.toLowerCase().indexOf(term);
-            if (matchIndex !== -1) {
-              break;
+      const kbSnapshot = await db.collection("knowledge_base").orderBy("timestamp", "desc").limit(500).get();
+      
+      if (queryEmbedding) {
+         let results: { data: any, score: number }[] = [];
+         kbSnapshot.forEach(doc => {
+            const data = doc.data();
+            if (data.embeddingArray) {
+               const score = cosineSimilarity(queryEmbedding!, data.embeddingArray);
+               results.push({ data, score });
             }
-          }
-          
-          if (matchIndex !== -1) {
-             const start = Math.max(0, matchIndex - 1500);
-             const end = Math.min(data.content.length, matchIndex + 2500);
-             const snippet = data.content.substring(start, end).replace(/\n/g, ' ');
-             retrievedContext += `\n- [Source (Imported via Drive): ${data.fileName}]: "...${snippet}..."`;
-          }
-        }
-      });
+         });
+         
+         // Sort by highest similarity
+         results.sort((a, b) => b.score - a.score);
+         const topResults = results.slice(0, 5); // Take top 5 chunks
+         
+         topResults.forEach(res => {
+             const snippet = res.data.content.replace(/\n/g, ' ');
+             retrievedContext += `\n- [Source (Imported via Drive): ${res.data.fileName}]: "...${snippet}..."`;
+         });
+      }
+
+      if (!retrievedContext) {
+         // Fallback keyword search
+         kbSnapshot.forEach(doc => {
+            const data = doc.data();
+            if (data.content && retrievedContext.length < 5000) { // arbitrary limit
+              let matchIndex = -1;
+              for (const term of searchTerms) {
+                matchIndex = data.content.toLowerCase().indexOf(term);
+                if (matchIndex !== -1) {
+                  break;
+                }
+              }
+              
+              if (matchIndex !== -1) {
+                 const start = Math.max(0, matchIndex - 1500);
+                 const end = Math.min(data.content.length, matchIndex + 2500);
+                 const snippet = data.content.substring(start, end).replace(/\n/g, ' ');
+                 retrievedContext += `\n- [Source (Imported via Drive): ${data.fileName}]: "...${snippet}..."`;
+              }
+            }
+         });
+      }
     } catch(err) {
       console.error("Error querying knowledge_base:", err);
     }
@@ -183,13 +235,41 @@ async function startServer() {
     }
   });
 
+  // API Route for User Chat History
+  app.get("/api/chat/history", async (req, res) => {
+    try {
+      const { uid } = req.query;
+      if (!uid || typeof uid !== "string") {
+        return res.status(400).json({ error: "UID required" });
+      }
+
+      const firestore = getDb();
+      if (!firestore) return res.json({ messages: [] });
+
+      const chatDoc = await firestore.collection("chat_histories").doc(uid).get();
+      if (!chatDoc.exists) {
+        return res.json({ messages: [] });
+      }
+
+      const data = chatDoc.data();
+      return res.json({ messages: data?.messages || [] });
+    } catch (e: any) {
+      console.error("Failed to get chat history", e);
+      return res.status(500).json({ error: e.message });
+    }
+  });
+
   // API Route for Gemini Chat
   app.post("/api/chat", async (req, res) => {
     try {
-      const { messages } = req.body;
+      const { messages, userProfile } = req.body;
       if (!messages || !Array.isArray(messages)) {
         return res.status(400).json({ error: "Messages array required" });
       }
+
+      const userContext = userProfile 
+        ? `\n\nUSER PROFILE:\nYou are speaking with ${userProfile.name} (${userProfile.email}). Address them by their first name naturally. You may infer their age group or professional stage carefully based on standard traits associated with their name or email if completely necessary, but mostly focus on giving them a personalized experience.` 
+        : "";
 
       // If no API key configured, use a rule-based smart assistant
       if (!process.env.GEMINI_API_KEY) {
@@ -406,7 +486,7 @@ WHAT YOU MUST NEVER DO
       }
       
       const proprietaryContext = await searchKnowledgeBase(latestUserMessage);
-      const finalSystemInstruction = systemInstruction + proprietaryContext;
+      const finalSystemInstruction = systemInstruction + proprietaryContext + userContext;
 
       // Phase 3: Function Calling (Tool Definition)
       const captureLeadTool: any = {
@@ -513,12 +593,33 @@ WHAT YOU MUST NEVER DO
           },
         });
 
-        return res.json({ reply: followupResponse.text });
+        const replyData = followupResponse.text || "I was unable to generate a response. Please try again.";
+
+        if (userProfile?.uid) {
+           const firestore = getDb();
+           if (firestore) {
+             await firestore.collection("chat_histories").doc(userProfile.uid).set({
+               messages: [...messages, { sender: "bot", text: replyData }],
+               updatedAt: admin.firestore.FieldValue.serverTimestamp()
+             }, { merge: true });
+           }
+        }
+        return res.json({ reply: replyData });
       }
 
       const reply =
         response.text ||
         "I was unable to generate a response. Please try again.";
+
+      if (userProfile?.uid) {
+         const firestore = getDb();
+         if (firestore) {
+           await firestore.collection("chat_histories").doc(userProfile.uid).set({
+             messages: [...messages, { sender: "bot", text: reply }],
+             updatedAt: admin.firestore.FieldValue.serverTimestamp()
+           }, { merge: true });
+         }
+      }
 
       return res.json({ reply });
     } catch (error: any) {
@@ -608,23 +709,64 @@ WHAT YOU MUST NEVER DO
          extractedText = await getResponse.text();
       }
 
-      // 2. Save text to Firestore
+      // Semantic Vector Generation
+      const ai = process.env.GEMINI_API_KEY ? new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY }) : null;
+      
       const firestore = getDb();
       if (firestore) {
-         await firestore.collection("knowledge_base").add({
-           fileName,
-           source: "google_drive",
-           fileId,
-           mimeType,
-           content: extractedText,
-           timestamp: admin.firestore.FieldValue.serverTimestamp()
-         });
-         console.log(`Successfully imported ${fileName} into Firestore.`);
-      } else {
-         console.warn("Firestore not available! Skipping DB insert.");
-         // Still returning success so the admin view doesn't crash if they haven't put the env vars
-      }
-
+         if (ai) {
+           // Chunk text and create vectors
+           const chunkSize = 1500;
+           let i = 0;
+           let chunkIndex = 0;
+           while (i < extractedText.length) {
+             const chunk = extractedText.substring(i, i + chunkSize);
+             
+             let embeddingValues: number[] | null = null;
+             try {
+               const response = await ai.models.embedContent({
+                 model: "gemini-embedding-2",
+                 contents: chunk
+               });
+               if (response.embeddings?.[0]?.values) {
+                 embeddingValues = response.embeddings[0].values;
+               }
+             } catch(err) {
+               console.error(`Failed to generate embedding for ${fileName} chunk ${chunkIndex}`);
+             }
+             
+             const data: any = {
+                fileName,
+                source: "google_drive",
+                fileId,
+                mimeType,
+                content: chunk,
+                chunkIndex,
+                timestamp: admin.firestore.FieldValue.serverTimestamp()
+             };
+             
+             if (embeddingValues) {
+                // Store as standard array to avoid index requirement for manual dot-product
+                data.embeddingArray = embeddingValues;
+             }
+             
+             await firestore.collection("knowledge_base").add(data);
+             
+             i += chunkSize - 200; // 200 chars overlap
+             chunkIndex++;
+           }
+         } else {
+           // Fallback without vectors
+           await firestore.collection("knowledge_base").add({
+             fileName,
+             source: "google_drive",
+             fileId,
+             mimeType,
+             content: extractedText,
+             timestamp: admin.firestore.FieldValue.serverTimestamp()
+           });
+         }
+       }
       return res.json({ success: true, message: `Imported ${extractedText.length} characters` });
     } catch (error: any) {
       console.error("Failed to import drive file", error);
@@ -672,11 +814,48 @@ WHAT YOU MUST NEVER DO
       // also count all chat interactions
       const chatSnapshot = await firestore.collection("analytics_events").where("eventName", "==", "chat_query").count().get();
       
+      // Get the timestamp from 7 days ago
+      const sevenDaysAgo = new Date();
+      sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+      
+      const recentChatSnapshot = await firestore
+        .collection("analytics_events")
+        .where("eventName", "==", "chat_query")
+        .where("timestamp", ">=", sevenDaysAgo)
+        .get();
+
+      // Group by date
+      const activityMap: Record<string, number> = {};
+      
+      // Initialize last 7 days with 0
+      for (let i = 6; i >= 0; i--) {
+        const d = new Date();
+        d.setDate(d.getDate() - i);
+        activityMap[d.toISOString().split("T")[0]] = 0;
+      }
+
+      recentChatSnapshot.forEach(doc => {
+        const data = doc.data();
+        const timestamp = data.timestamp;
+        if (timestamp) {
+           const dateStr = timestamp.toDate().toISOString().split('T')[0];
+           if (activityMap[dateStr] !== undefined) {
+             activityMap[dateStr]++;
+           }
+        }
+      });
+      
+      const last7DaysActivity = Object.entries(activityMap).map(([date, count]) => ({
+        date,
+        count
+      }));
+
       res.json({
          totalChatQueries: chatSnapshot.data().count,
          totalWaitlist: waitlistSnapshot.data().count,
          totalLeads: leadsSnapshot.data().count,
-         recentQueries: latestEvents
+         recentQueries: latestEvents,
+         last7DaysActivity
       });
     } catch (error: any) {
       console.error("Failed to fetch analytics", error);

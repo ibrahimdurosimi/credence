@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Send, User, ChevronRight, HelpCircle, Loader, MessageSquare } from "lucide-react";
+import { Send, User, ChevronRight, HelpCircle, Loader, MessageSquare, Copy, Share2, Check } from "lucide-react";
+import ReactMarkdown from "react-markdown";
 import { ChatMessage } from "../types";
 
 export default function AdvisorChat() {
@@ -101,7 +102,7 @@ export default function AdvisorChat() {
       {/* Chat Top */}
       <div className="p-4 px-5 border-b border-white/5 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="w-[38px] h-[38px] bg-gold rounded-full flex items-center justify-center font-serif text-[17px] font-semibold text-[#1E0A4E]">
+          <div className="w-[38px] h-[38px] bg-gold rounded-full flex items-center justify-center font-serif text-[17px] font-semibold text-purple-deep">
             U
           </div>
           <div>
@@ -120,17 +121,47 @@ export default function AdvisorChat() {
       {/* Messages */}
       <div className="flex-1 overflow-y-auto p-5 pb-2 flex flex-col gap-3">
         {messages.map((msg, idx) => (
-          <div
-            key={idx}
-            className={`flex flex-col p-3 px-4 text-[13.5px] leading-[1.6] shadow-sm animate-fade-in-up
-              ${msg.sender === "user" 
-                ? "bg-gold text-[#1E0A4E] rounded-tl-[14px] rounded-tr-[2px] rounded-br-[14px] rounded-bl-[14px] font-medium max-w-[80%] self-end" 
-                : "bg-white/5 border border-white/10 text-white/85 rounded-tl-[2px] rounded-tr-[14px] rounded-br-[14px] rounded-bl-[14px] max-w-[88%] w-fit"
-              }`
-            }
-            style={{ whiteSpace: "pre-line", animationDelay: idx === messages.length - 1 ? '0.1s' : '0s' }}
-          >
-            {msg.text}
+          <div key={idx} className={`flex flex-col animate-fade-in-up ${msg.sender === "user" ? "self-end max-w-[80%]" : "max-w-[88%]"}`} style={{ animationDelay: idx === messages.length - 1 ? '0.1s' : '0s' }}>
+            <div
+              className={`p-3 px-4 text-[13.5px] leading-[1.6] shadow-sm
+                ${msg.sender === "user" 
+                  ? "bg-gold text-purple-deep rounded-tl-[14px] rounded-tr-[2px] rounded-br-[14px] rounded-bl-[14px] font-medium w-full" 
+                  : "bg-white/5 border border-white/10 text-white/85 rounded-tl-[2px] rounded-tr-[14px] rounded-br-[14px] rounded-bl-[14px] w-full"
+                }`
+              }
+            >
+              {msg.sender === "user" ? (
+                <div style={{ whiteSpace: "pre-line" }}>{msg.text}</div>
+              ) : (
+                <div className="markdown-body text-[14px] leading-[1.6] focus:outline-none max-w-none text-white/90 [&>p]:mb-3 [&>p:last-child]:mb-0 [&>ul]:pl-5 [&>ul]:list-disc [&>ul]:mb-3 [&>ol]:pl-5 [&>ol]:list-decimal [&>ol]:mb-3 [&>li]:mb-1 [&>h1]:text-xl [&>h1]:font-bold [&>h1]:mb-2 [&>h1]:text-[#D4A843] [&>h2]:text-lg [&>h2]:font-semibold [&>h2]:mb-2 [&>h2]:text-[#D4A843] [&>h3]:text-[#D4A843] [&>h3]:text-base [&>h3]:font-semibold [&>h3]:mb-1 [&>h3]:mt-2 [&>strong]:font-bold [&>strong]:text-white [&>em]:italic">
+                  <ReactMarkdown>{msg.text}</ReactMarkdown>
+                </div>
+              )}
+            </div>
+            {msg.sender === "bot" && (
+              <div className="flex items-center gap-2 mt-2 ml-1">
+                 <button 
+                  onClick={() => {
+                    navigator.clipboard.writeText(msg.text);
+                  }}
+                  title="Copy to clipboard"
+                  className="flex items-center justify-center p-1.5 px-2.5 bg-white/5 border border-white/10 rounded-lg text-white/60 hover:bg-white/10 hover:text-white transition-colors cursor-pointer shadow-sm gap-1.5"
+                 >
+                   <Copy className="w-3 h-3" />
+                   <span className="text-[11px] font-medium">Copy</span>
+                 </button>
+                 <a 
+                  href={`https://api.whatsapp.com/send?text=${encodeURIComponent(msg.text)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title="Share to WhatsApp"
+                  className="flex items-center justify-center p-1.5 px-2.5 bg-[#25D366]/10 border border-[#25D366]/20 rounded-lg text-[#25D366] hover:bg-[#25D366]/20 transition-colors cursor-pointer shadow-sm gap-1.5"
+                 >
+                   <Share2 className="w-3 h-3" />
+                   <span className="text-[11px] font-medium">Share</span>
+                 </a>
+              </div>
+            )}
           </div>
         ))}
 
@@ -181,7 +212,7 @@ export default function AdvisorChat() {
           className="w-[34px] h-[34px] bg-gold rounded-full flex items-center justify-center shrink-0 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed transition-transform active:scale-95"
           aria-label="Send message"
         >
-          <Send className="w-4 h-4 text-[#1E0A4E] shrink-0 transform -translate-x-[1px] translate-y-[1px]" />
+          <Send className="w-4 h-4 text-purple-deep shrink-0 transform -translate-x-[1px] translate-y-[1px]" />
         </button>
       </form>
     </div>

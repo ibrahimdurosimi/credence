@@ -15,6 +15,23 @@
   --color-text-dark: #1E0A4E;
 }
 
+/* Dark Theme Overrides */
+.dark-theme {
+  --color-cream: #1E0A4E;
+  --color-cream-mid: #2D1566;
+  
+  --color-purple-deep: #FDF8F0;
+  --color-purple-mid: #E8E2D8;
+  --color-purple-light: #aaa;
+}
+
+/* Safer, exact-word matching to avoid breaking bg-white/10 opacity modifiers */
+.dark-theme [class~="bg-white"] { background-color: #16073A !important; }
+.dark-theme [class~="border-[#E8E2D8]"] { border-color: rgba(255,255,255,0.15) !important; }
+.dark-theme [class~="text-[#1E0A4E]"] { color: #FDF8F0 !important; }
+.dark-theme [class~="text-slate-600"] { color: #ddd6fe !important; }
+.dark-theme [class~="bg-slate-100"] { background-color: #2D1566 !important; }
+
 /* Dynamic ticker marquee animation loop */
 @keyframes marquee {
   0% { transform: translateX(0%); }
@@ -43,4 +60,12 @@
 
 .animate-fade-in-up {
   animation: fadeUp 0.5s ease both;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

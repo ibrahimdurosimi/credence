@@ -5,8 +5,9 @@ import { GoogleGenAI } from "@google/genai";
 import dotenv from "dotenv";
 import admin from "firebase-admin";
 import { createRequire } from "module";
-const __require = typeof require !== "undefined" ? require : createRequire(import.meta.url);
-const pdfParse = __require("pdf-parse");
+// Fallback require that works in both ESM (dev) and CJS (prod)
+const requireUtil = typeof require !== "undefined" ? require : createRequire(import.meta.url);
+const pdfParse = requireUtil("pdf-parse");
 
 import { getFirestore } from "firebase-admin/firestore";
 

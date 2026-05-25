@@ -49,16 +49,16 @@ export default function AdvisorView({ setCurrentTab, user, isDark, setIsDark }: 
   }, [user]);
 
   const themeVars = {
-    bg: isDark ? "bg-purple-deep" : "bg-cream",
-    textObj: isDark ? "text-white" : "text-purple-deep",
-    subText: isDark ? "text-white/50" : "text-purple-deep/60",
-    topBarBg: isDark ? "bg-purple-deep" : "bg-cream",
-    topBarBorder: "border-transparent",
+    bg: "bg-cream",
+    textObj: "text-purple-deep",
+    subText: "text-purple-deep/70",
+    topBarBg: "bg-cream/90 backdrop-blur-md",
+    topBarBorder: "border-purple-deep/5",
     gold: "text-[#D4A843]",
     goldBg: "bg-[#D4A843]",
-    mutatedWhite: isDark ? "bg-white/[0.07] text-white/90" : "bg-white border border-[#1E0A4E]/10 text-purple-deep/90 shadow-sm",
-    mutatedLight: isDark ? "bg-white/5 border-white/10" : "bg-purple-deep/5 border-[#1E0A4E]/10",
-    inputBg: isDark ? "bg-purple-deep/90" : "bg-cream/90",
+    mutatedWhite: "bg-white text-purple-deep/90 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)]",
+    mutatedLight: "bg-purple-deep/5 border-purple-deep/10",
+    inputBg: "bg-cream",
   };
 
   const tools = [
@@ -125,11 +125,12 @@ export default function AdvisorView({ setCurrentTab, user, isDark, setIsDark }: 
   return (
     <div className={`flex flex-col h-screen ${themeVars.bg} ${themeVars.textObj} overflow-hidden w-full font-sans relative transition-colors duration-300`}>
       {/* Background Pattern */}
-      <div className={`absolute inset-0 pointer-events-none ${isDark ? "opacity-[0.04]" : "opacity-[0.03]"} z-0`} style={{ backgroundImage: "radial-gradient(circle at center, currentColor 1.5px, transparent 1.5px)", backgroundSize: "32px 32px" }}></div>
+      <div className={`absolute inset-0 pointer-events-none opacity-[0.05] z-0`} style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M40 0l40 40-40 40L0 40z' fill='%23D4A843' fill-opacity='1' fill-rule='evenodd'/%3E%3C/svg%3E\")", backgroundSize: '120px 120px' }}></div>
+      <div className={`absolute inset-0 pointer-events-none ${isDark ? "opacity-10" : "opacity-5"} z-0`} style={{ backgroundImage: "radial-gradient(circle at center, currentColor 1px, transparent 1px)", backgroundSize: "24px 24px" }}></div>
       
-      <div className={`w-full max-w-[680px] mx-auto ${themeVars.bg} shadow-2xl h-full flex flex-col relative z-10 border-x ${isDark ? "border-white/5" : "border-[#1E0A4E]/5"} transition-colors duration-300`}>
+      <div className={`w-full max-w-[800px] mx-auto h-full flex flex-col relative z-10 transition-colors duration-300`}>
         {/* 1. Top Bar */}
-        <div className={`flex-none ${themeVars.topBarBg} border-b ${themeVars.topBarBorder} px-4 py-2 flex items-center justify-between z-10 sticky top-0 transition-colors duration-300`}>
+        <div className={`flex-none bg-transparent px-4 py-3 flex items-center justify-between z-10 sticky top-0 transition-colors duration-300 backdrop-blur-md border-b ${isDark ? "border-white/5" : "border-purple-deep/5"}`}>
           <button onClick={() => setCurrentTab("home")} className={`flex items-center gap-1.5 w-16 ${isDark ? 'text-white/70 hover:text-white' : 'text-purple-deep/70 hover:text-purple-deep'} transition cursor-pointer`}>
             <ArrowLeft className="w-4 h-4" />
             <span className="text-[13px] font-medium">Back</span>
@@ -170,12 +171,12 @@ export default function AdvisorView({ setCurrentTab, user, isDark, setIsDark }: 
             {messages.map((msg, idx) => (
               <React.Fragment key={msg.id}>
                 {msg.text && (
-                  <div className="flex flex-col w-fit">
+                  <div className={`flex flex-col w-full ${msg.sender === "user" ? "items-end" : "items-start"}`}>
                     <div
-                      className={`flex flex-col text-[14px] leading-[1.6] shadow-sm animate-fade-in-up w-fit
+                      className={`flex flex-col text-[14px] leading-[1.6] animate-fade-in-up w-fit shadow-lg shadow-black/5
                         ${msg.sender === "user" 
-                          ? "bg-[#D4A843] text-purple-deep rounded-tl-[16px] rounded-tr-[4px] rounded-br-[16px] rounded-bl-[16px] font-medium max-w-[85%] self-end p-3.5 px-4" 
-                          : `${themeVars.mutatedWhite} rounded-tl-[4px] rounded-tr-[16px] rounded-br-[16px] rounded-bl-[16px] max-w-[90%] p-4`
+                          ? "bg-[#D4A843] text-purple-deep rounded-[24px] rounded-tr-[4px] font-medium max-w-[85%] p-4 px-6 border-none" 
+                          : `${themeVars.mutatedWhite} rounded-[24px] rounded-tl-[4px] max-w-[90%] p-5 border-none`
                         }`
                       }
                     >
@@ -242,7 +243,7 @@ export default function AdvisorView({ setCurrentTab, user, isDark, setIsDark }: 
             )}
 
             {isTyping && (
-              <div className={`${isDark ? 'bg-white/[0.07]' : 'bg-white shadow-sm border border-[#1E0A4E]/10'} rounded-tl-[4px] rounded-tr-[16px] rounded-br-[16px] rounded-bl-[16px] p-4 flex gap-1.5 items-center w-fit animate-fade-in-up`}>
+              <div className={`${isDark ? 'bg-white/[0.07] backdrop-blur-sm' : 'bg-white shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)]'} rounded-[20px] rounded-tl-[4px] p-4 flex gap-1.5 items-center w-fit animate-fade-in-up`}>
                 <div className={`w-1.5 h-1.5 ${isDark ? 'bg-white/40' : 'bg-purple-deep/40'} rounded-full animate-bounce`} style={{ animationDelay: "0s" }} />
                 <div className={`w-1.5 h-1.5 ${isDark ? 'bg-white/40' : 'bg-purple-deep/40'} rounded-full animate-bounce`} style={{ animationDelay: "0.2s" }} />
                 <div className={`w-1.5 h-1.5 ${isDark ? 'bg-white/40' : 'bg-purple-deep/40'} rounded-full animate-bounce`} style={{ animationDelay: "0.4s" }} />
@@ -317,7 +318,7 @@ function MurabahaTool({ isDark }: { isDark: boolean }) {
   const formatNaira = (val: number) => "₦" + val.toLocaleString('en-NG', { maximumFractionDigits: 0 });
 
   return (
-    <div className={`border rounded-2xl overflow-hidden w-full max-w-[340px] animate-fade-in-up ${isDark ? 'bg-white/[0.04] border-[#D4A843]/20 shadow-xl shadow-black/20' : 'bg-white border-[#1E0A4E]/10 shadow-lg'}`}>
+    <div className={`rounded-[24px] shadow-xl shadow-black/5 border-none overflow-hidden w-full max-w-[340px] animate-fade-in-up ${isDark ? 'bg-white/[0.04] border-[#D4A843]/20 shadow-xl shadow-black/20' : 'bg-white border-[#1E0A4E]/10 shadow-lg'}`}>
        <div className={`border-b px-4 py-3 flex items-center gap-2 ${isDark ? 'bg-[#D4A843]/10 border-[#D4A843]/20' : 'bg-cream border-cream-mid'}`}>
          <Calculator className={`w-4 h-4 ${isDark ? 'text-[#D4A843]' : 'text-purple-deep'}`} />
          <span className={`${isDark ? 'text-[#D4A843]' : 'text-purple-deep'} font-medium text-[13px]`}>Murabaha Calculator</span>
@@ -403,7 +404,7 @@ function ReadinessTool({ isDark }: { isDark: boolean }) {
   if (step === 5) {
     const result = getResult();
     return (
-      <div className={`border rounded-2xl p-5 w-full max-w-[340px] animate-fade-in-up flex flex-col gap-3 ${isDark ? 'bg-white/[0.04] border-[#D4A843]/20' : 'bg-white border-[#1E0A4E]/10 shadow-sm'}`}>
+      <div className={`rounded-[24px] shadow-xl shadow-black/5 border-none p-5 w-full max-w-[340px] animate-fade-in-up flex flex-col gap-3 ${isDark ? 'bg-white/[0.04] border-[#D4A843]/20' : 'bg-white border-[#1E0A4E]/10 shadow-sm'}`}>
         {result === "eligible" && (
            <>
              <div className="text-emerald-500 font-serif text-xl font-medium">You look eligible! 🎉</div>
@@ -459,7 +460,7 @@ function ReadinessTool({ isDark }: { isDark: boolean }) {
   const { q, opts } = currentQ();
 
   return (
-    <div className={`border rounded-2xl p-5 w-full max-w-[340px] animate-fade-in-up ${isDark ? 'bg-white/[0.04] border-[#D4A843]/20' : 'bg-white border-[#1E0A4E]/10 shadow-sm'}`}>
+    <div className={`rounded-[24px] shadow-xl shadow-black/5 border-none p-5 w-full max-w-[340px] animate-fade-in-up ${isDark ? 'bg-white/[0.04] border-[#D4A843]/20' : 'bg-white border-[#1E0A4E]/10 shadow-sm'}`}>
       <div className={`font-medium text-[13px] mb-4 flex items-center gap-2 ${isDark ? 'text-[#D4A843]' : 'text-purple-deep'}`}>
          <ShieldCheck className="w-4 h-4" /> Eligibility Quiz
       </div>
@@ -485,7 +486,7 @@ function ComparatorTool({ isDark }: { isDark: boolean }) {
 
   if (selected) {
     return (
-      <div className={`border rounded-2xl p-5 w-full max-w-[340px] animate-fade-in-up flex flex-col gap-4 ${isDark ? 'bg-white/[0.04] border-[#D4A843]/20' : 'bg-white border-[#1E0A4E]/10 shadow-sm'}`}>
+      <div className={`rounded-[24px] shadow-xl shadow-black/5 border-none p-5 w-full max-w-[340px] animate-fade-in-up flex flex-col gap-4 ${isDark ? 'bg-white/[0.04] border-[#D4A843]/20' : 'bg-white border-[#1E0A4E]/10 shadow-sm'}`}>
         <div className={`flex items-center justify-between border-b pb-3 ${isDark ? 'border-white/10' : 'border-[#1E0A4E]/10'}`}>
           <div className="text-[13px] font-medium text-[#D4A843]">Recommended Banks</div>
           <button onClick={() => setSelected(null)} className={`text-[11px] transition cursor-pointer ${isDark ? 'text-white/50 hover:text-white' : 'text-purple-deep/50 hover:text-purple-deep'}`}>Back</button>
@@ -515,7 +516,7 @@ function ComparatorTool({ isDark }: { isDark: boolean }) {
   }
 
   return (
-    <div className={`border rounded-2xl p-5 w-full max-w-[340px] animate-fade-in-up ${isDark ? 'bg-white/[0.04] border-[#D4A843]/20' : 'bg-white border-[#1E0A4E]/10 shadow-sm'}`}>
+    <div className={`rounded-[24px] shadow-xl shadow-black/5 border-none p-5 w-full max-w-[340px] animate-fade-in-up ${isDark ? 'bg-white/[0.04] border-[#D4A843]/20' : 'bg-white border-[#1E0A4E]/10 shadow-sm'}`}>
       <div className="flex flex-col gap-2 mb-3">
         {needs.map((n) => (
           <button key={n.id} onClick={() => setSelected(n.id)} className={`border p-3 rounded-xl text-left text-[13px] hover:border-[#D4A843] transition hover:text-[#D4A843] cursor-pointer ${isDark ? 'bg-white/5 border-white/10' : 'bg-cream border-[#1E0A4E]/10 text-purple-deep'}`}>
@@ -556,7 +557,7 @@ function MythsTool({ isDark }: { isDark: boolean }) {
   };
 
   return (
-    <div className={`border rounded-2xl overflow-hidden w-full max-w-[340px] animate-fade-in-up flex flex-col ${isDark ? 'bg-white/[0.04] border-[#D4A843]/20' : 'bg-white border-[#1E0A4E]/10 shadow-sm'}`}>
+    <div className={`rounded-[24px] shadow-xl shadow-black/5 border-none overflow-hidden w-full max-w-[340px] animate-fade-in-up flex flex-col ${isDark ? 'bg-white/[0.04] border-[#D4A843]/20' : 'bg-white border-[#1E0A4E]/10 shadow-sm'}`}>
        <div className={`border-b px-4 py-3 flex items-center gap-2 ${isDark ? 'bg-[#D4A843]/10 border-[#D4A843]/20' : 'bg-[#D4A843]/5 border-cream-mid'}`}>
          <Lightbulb className={`w-4 h-4 ${isDark ? 'text-[#D4A843]' : 'text-purple-deep'}`} />
          <span className={`${isDark ? 'text-[#D4A843]' : 'text-purple-deep'} font-medium text-[13px]`}>Myth Buster</span>
@@ -619,7 +620,7 @@ function PlannerTool({ isDark }: { isDark: boolean }) {
 
   if (showRoadmap) {
     return (
-      <div className={`border rounded-2xl w-full max-w-[340px] animate-fade-in-up p-5 flex flex-col gap-4 ${isDark ? 'bg-white/[0.04] border-[#D4A843]/20' : 'bg-white border-[#1E0A4E]/10 shadow-sm'}`}>
+      <div className={`rounded-[24px] shadow-xl shadow-black/5 border-none w-full max-w-[340px] animate-fade-in-up p-5 flex flex-col gap-4 ${isDark ? 'bg-white/[0.04] border-[#D4A843]/20' : 'bg-white border-[#1E0A4E]/10 shadow-sm'}`}>
         <div className={`flex items-center justify-between border-b pb-3 ${isDark ? 'border-white/10' : 'border-[#1E0A4E]/10'}`}>
           <div className={`text-[13px] font-medium ${isDark ? 'text-[#D4A843]' : 'text-purple-deep'}`}>Your Roadmap</div>
           <button onClick={() => setShowRoadmap(false)} className={`text-[11px] transition cursor-pointer ${isDark ? 'text-white/50 hover:text-white' : 'text-purple-deep/50 hover:text-purple-deep'}`}>Back</button>
@@ -679,7 +680,7 @@ function PlannerTool({ isDark }: { isDark: boolean }) {
   }
 
   return (
-    <div className={`border rounded-2xl w-full max-w-[340px] animate-fade-in-up p-5 ${isDark ? 'bg-white/[0.04] border-[#D4A843]/20' : 'bg-white border-[#1E0A4E]/10 shadow-sm'}`}>
+    <div className={`rounded-[24px] shadow-xl shadow-black/5 border-none w-full max-w-[340px] animate-fade-in-up p-5 ${isDark ? 'bg-white/[0.04] border-[#D4A843]/20' : 'bg-white border-[#1E0A4E]/10 shadow-sm'}`}>
       <div className="flex flex-col gap-2 mb-4">
         {goals.map((g, i) => {
           const isSelected = selectedGoals.includes(g.label);
@@ -712,7 +713,7 @@ function PlannerTool({ isDark }: { isDark: boolean }) {
 
 function WhatsAppTool({ isDark }: { isDark: boolean }) {
   return (
-    <div className={`border rounded-2xl w-full max-w-[340px] animate-fade-in-up overflow-hidden shadow-lg ${isDark ? 'bg-white/[0.04] border-white/10' : 'bg-white border-[#1E0A4E]/10'}`}>
+    <div className={`rounded-[24px] shadow-xl shadow-black/5 border-none w-full max-w-[340px] animate-fade-in-up overflow-hidden shadow-lg ${isDark ? 'bg-white/[0.04] border-white/10' : 'bg-white border-[#1E0A4E]/10'}`}>
       <div className={`bg-[#25D366]/10 border-b border-[#25D366]/20 p-4 flex flex-col items-center justify-center text-center gap-3`}>
         <div className="w-12 h-12 bg-[#25D366] rounded-full flex items-center justify-center shadow-lg">
           <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- The main 'O' shape -->
+  <ellipse cx="50" cy="40" rx="20" ry="32" fill="none" stroke="#4a047d" stroke-width="22" />
+  
+  <!-- The crescent/smile shape below -->
+  <path d="M 23 83 Q 50 110 77 83" fill="none" stroke="#4a047d" stroke-width="12" stroke-linecap="round" />
+</svg>

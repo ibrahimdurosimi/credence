@@ -1,5 +1,5 @@
 import React from "react";
-import { Sparkles, Calculator, LineChart, Building2, ArrowRight } from "lucide-react";
+import { Sparkles, Calculator, BookOpen, Clock, ArrowRight } from "lucide-react";
 import { User } from "firebase/auth";
 
 interface UmaizaLandingViewProps {
@@ -11,22 +11,21 @@ interface UmaizaLandingViewProps {
 
 export default function UmaizaLandingView({ setCurrentTab, user, handleLogin, isLoggingIn }: UmaizaLandingViewProps) {
   return (
-    <div className="bg-cream text-purple-deep min-h-screen pt-24 pb-20">
+    <div className="bg-cream text-purple-deep min-h-screen pt-28 pb-20">
       <div className="mx-auto max-w-7xl px-6">
         
-        <div className="flex flex-col items-center text-center mb-16 pt-12">
+        <div className="flex flex-col items-center text-center mb-16 pt-6">
           <div className="inline-flex items-center gap-2 rounded-full border border-purple-deep/10 bg-white px-3 py-1 mb-10 text-xs font-medium text-purple-deep/70 shadow-sm">
             <span className="h-1.5 w-1.5 rounded-full bg-gold"></span>
-            AI-powered · Interest-free
+            Umaiza — AI-powered interest-free financial advisor
           </div>
 
           <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl font-semibold tracking-tight text-purple-deep mb-6 max-w-4xl leading-tight">
-            Halal money decisions,<br />
-            <span className="text-gold italic font-serif">honestly answered.</span>
+            Meet your personal <span className="text-gold italic font-serif">ethical finance guide.</span>
           </h1>
 
           <p className="text-purple-deep/70 max-w-2xl text-lg md:text-xl leading-relaxed mb-10">
-            Umaiza is your AI Islamic finance advisor. Compare banks, run Murabaha calculations, build a savings plan — all without riba.
+            Not a chatbot. Not a form. A genuinely intelligent advisor that understands your needs, checks your eligibility, and connects you to the right ethical financing — in plain language, in minutes.
           </p>
 
           {user ? (
@@ -67,9 +66,9 @@ export default function UmaizaLandingView({ setCurrentTab, user, handleLogin, is
             <div className="mb-6 mb-8">
               <Sparkles className="h-6 w-6 text-gold" />
             </div>
-            <h3 className="font-serif text-lg font-bold text-purple-deep mb-3">Smart guidance</h3>
+            <h3 className="font-serif text-lg font-bold text-purple-deep mb-3">Natural Language</h3>
             <p className="text-purple-deep/70 text-sm leading-relaxed">
-              Real, citation-backed answers about halal finance.
+              Understands your need in natural language
             </p>
           </div>
 
@@ -78,31 +77,31 @@ export default function UmaizaLandingView({ setCurrentTab, user, handleLogin, is
             <div className="mb-6 mb-8">
               <Calculator className="h-6 w-6 text-gold" />
             </div>
-            <h3 className="font-serif text-lg font-bold text-purple-deep mb-3">Murabaha calculator</h3>
+            <h3 className="font-serif text-lg font-bold text-purple-deep mb-3">Eligibility Check</h3>
             <p className="text-purple-deep/70 text-sm leading-relaxed">
-              Fixed-profit installments — zero riba, zero surprises.
+              Checks eligibility across all Credence products
             </p>
           </div>
 
           {/* Card 3 */}
           <div className="rounded-2xl border border-purple-deep/10 bg-white p-8 hover:shadow-lg hover:border-gold/30 transition duration-300 flex flex-col h-full">
             <div className="mb-6 mb-8">
-              <LineChart className="h-6 w-6 text-gold" />
+              <BookOpen className="h-6 w-6 text-gold" />
             </div>
-            <h3 className="font-serif text-lg font-bold text-purple-deep mb-3">Savings tracker</h3>
+            <h3 className="font-serif text-lg font-bold text-purple-deep mb-3">Clear Explanations</h3>
             <p className="text-purple-deep/70 text-sm leading-relaxed">
-              Set a goal, get a plan, watch progress sync to your account.
+              Explains how ethical financing actually works
             </p>
           </div>
 
           {/* Card 4 */}
           <div className="rounded-2xl border border-purple-deep/10 bg-white p-8 hover:shadow-lg hover:border-gold/30 transition duration-300 flex flex-col h-full">
             <div className="mb-6 mb-8">
-              <Building2 className="h-6 w-6 text-gold" />
+              <Clock className="h-6 w-6 text-gold" />
             </div>
-            <h3 className="font-serif text-lg font-bold text-purple-deep mb-3">Bank comparison</h3>
+            <h3 className="font-serif text-lg font-bold text-purple-deep mb-3">Available 24/7</h3>
             <p className="text-purple-deep/70 text-sm leading-relaxed">
-              Side-by-side Islamic banks across Nigeria, UK, UAE, Malaysia.
+              Available 24/7 — no appointment needed
             </p>
           </div>
         </div>

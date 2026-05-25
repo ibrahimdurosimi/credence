@@ -164,7 +164,7 @@ export default function App() {
       {currentTab !== "advisor" && <Header currentTab={currentTab} setCurrentTab={handleTabChange} isDarkTheme={isDarkTheme} setTheme={setTheme} />}
 
       {/* Main Content Area */}
-      <main className={`flex-grow ${currentTab !== "advisor" ? "pt-[72px]" : ""}`}>
+      <main className="flex-grow">
         {renderView()}
       </main>
 

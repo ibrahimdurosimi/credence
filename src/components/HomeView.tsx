@@ -1,7 +1,48 @@
-import React, { useState, useEffect } from "react";
-import { Sparkles, ArrowRight, Plane, House, ShieldCheck, Briefcase, Activity, CheckCircle, Clock, MessageSquare, BookOpen, Palette } from "lucide-react";
+import React, { useState, useEffect, useRef } from "react";
+import { Sparkles, ArrowRight, Plane, House, ShieldCheck, Briefcase, Activity, CheckCircle, Clock, MessageSquare, BookOpen, Palette, ChevronLeft, ChevronRight } from "lucide-react";
 import AdvisorChat from "./AdvisorChat";
 import { PRODUCTS } from "../data";
+
+const CarouselWrapper = ({ children }: { children: React.ReactNode }) => {
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  
+  const scroll = (direction: 'left' | 'right') => {
+    if (scrollContainerRef.current) {
+      const { current } = scrollContainerRef;
+      const scrollAmount = current.clientWidth * 0.8;
+      current.scrollBy({ left: direction === 'left' ? -scrollAmount : scrollAmount, behavior: 'smooth' });
+    }
+  };
+
+  return (
+    <div className="relative group">
+      <div 
+        ref={scrollContainerRef}
+        className="flex md:grid gap-4 md:gap-6 md:grid-cols-3 overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-6 md:pb-0 -mx-6 px-6 md:mx-0 md:px-0 scroll-smooth items-stretch"
+      >
+        {children}
+      </div>
+      
+      {/* Mobile Navigation Arrows */}
+      <div className="flex justify-center gap-3 mt-4 md:hidden">
+        <button 
+          onClick={() => scroll('left')} 
+          className="p-3 rounded-full bg-white border border-purple-deep/10 text-purple-deep hover:bg-gold/10 hover:text-gold transition shadow-sm"
+          aria-label="Scroll left"
+        >
+          <ChevronLeft className="w-5 h-5" />
+        </button>
+        <button 
+          onClick={() => scroll('right')} 
+          className="p-3 rounded-full bg-white border border-purple-deep/10 text-purple-deep hover:bg-gold/10 hover:text-gold transition shadow-sm"
+          aria-label="Scroll right"
+        >
+          <ChevronRight className="w-5 h-5" />
+        </button>
+      </div>
+    </div>
+  );
+};
 
 interface HomeViewProps {
   setCurrentTab: (tab: string) => void;
@@ -74,7 +115,7 @@ export default function HomeView({ setCurrentTab, setShowThemePopup }: HomeViewP
       )}
 
       {/* 1. Hero Section */}
-      <section className="relative overflow-hidden bg-cream text-purple-deep pt-32 pb-24 px-6 lg:pt-40 lg:pb-32 lg:px-12">
+      <section className="relative overflow-hidden bg-cream text-purple-deep pt-28 pb-24 px-6 lg:pt-36 lg:pb-32 lg:px-12">
         {/* Geometric Islamic-inspired Pattern */}
         <div className="absolute inset-0 opacity-[0.05] pointer-events-none" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0l10 10-10 10-10-10L30 0zm0 60l10-10-10-10-10 10L30 60zM0 30l10-10 10 10-10 10L0 30zm60 0l-10-10-10 10 10 10 10-10z' fill='%23D4A843' fill-opacity='1' fill-rule='evenodd'/%3E%3C/svg%3E\")" }}></div>
         {/* Subtle patterned gold grids */}
@@ -89,7 +130,7 @@ export default function HomeView({ setCurrentTab, setShowThemePopup }: HomeViewP
             <div className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-gold/10 px-5 py-2 mb-8">
               <Sparkles className="h-4 w-4 text-gold animate-pulse" />
               <span className="text-xs font-bold uppercase tracking-[0.25em] text-gold">
-                Ethical Lifestyle Finance
+                Lifestyle Financing, Ethically
               </span>
             </div>
 
@@ -121,8 +162,8 @@ export default function HomeView({ setCurrentTab, setShowThemePopup }: HomeViewP
           </div>
           
           {/* Right side elements */}
-          <div className="hidden lg:block relative h-[600px] w-full">
-            <div className="absolute top-10 right-10 bg-white border border-purple-deep/10 rounded-3xl p-6 shadow-xl w-80 transform rotate-3 hover:rotate-0 transition duration-500 cursor-pointer hover:shadow-2xl z-20" onClick={() => setCurrentTab("products")}>
+          <div className="block mt-12 lg:mt-0 relative h-[450px] sm:h-[500px] lg:h-[600px] w-full max-w-sm lg:max-w-none mx-auto scale-[0.85] sm:scale-100 origin-top">
+            <div className="absolute top-0 right-0 sm:top-10 sm:right-10 bg-white border border-purple-deep/10 rounded-3xl p-6 shadow-xl w-full sm:w-80 transform rotate-3 hover:rotate-0 transition duration-500 cursor-pointer hover:shadow-2xl z-20" onClick={() => setCurrentTab("products")}>
               <div className="flex items-center gap-4 mb-5">
                 <div className="w-14 h-14 rounded-2xl bg-gold/10 flex items-center justify-center text-gold">
                   <Plane className="h-7 w-7" />
@@ -143,7 +184,7 @@ export default function HomeView({ setCurrentTab, setShowThemePopup }: HomeViewP
               </div>
             </div>
             
-            <div className="absolute top-48 right-32 bg-white border border-purple-deep/10 rounded-3xl p-6 shadow-xl w-80 transform -rotate-3 hover:rotate-0 transition duration-500 cursor-pointer hover:shadow-2xl z-10" onClick={() => setCurrentTab("products")}>
+            <div className="absolute top-36 -right-4 sm:top-48 sm:right-32 bg-white border border-purple-deep/10 rounded-3xl p-6 shadow-xl w-full sm:w-80 transform -rotate-3 hover:rotate-0 transition duration-500 cursor-pointer hover:shadow-2xl z-10" onClick={() => setCurrentTab("products")}>
               <div className="flex items-center gap-4 mb-5">
                 <div className="w-14 h-14 rounded-2xl bg-emerald-500/10 flex items-center justify-center text-emerald-600">
                   <House className="h-7 w-7" />
@@ -164,7 +205,7 @@ export default function HomeView({ setCurrentTab, setShowThemePopup }: HomeViewP
               </div>
             </div>
 
-            <div className="absolute top-80 right-4 bg-white border border-purple-deep/10 rounded-3xl p-6 shadow-xl w-80 transform rotate-6 hover:rotate-0 transition duration-500 cursor-pointer hover:shadow-2xl z-30" onClick={() => setCurrentTab("products")}>
+            <div className="absolute top-72 right-4 sm:top-80 sm:right-4 bg-white border border-purple-deep/10 rounded-3xl p-6 shadow-xl w-full sm:w-80 transform rotate-6 hover:rotate-0 transition duration-500 cursor-pointer hover:shadow-2xl z-30" onClick={() => setCurrentTab("products")}>
               <div className="flex items-center gap-4 mb-5">
                 <div className="w-14 h-14 rounded-2xl bg-blue-500/10 flex items-center justify-center text-blue-600">
                   <Briefcase className="h-7 w-7" />
@@ -203,7 +244,7 @@ export default function HomeView({ setCurrentTab, setShowThemePopup }: HomeViewP
         </p>
 
         {/* Grid cards */}
-        <div className="flex md:grid gap-4 md:gap-6 md:grid-cols-3 overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-6 md:pb-0 -mx-6 px-6 md:mx-0 md:px-0 scroll-smooth">
+        <CarouselWrapper>
           <div className="w-[85vw] sm:w-[320px] md:w-auto shrink-0 snap-center rounded-2xl border border-purple-deep/10 bg-white p-8 hover:shadow-lg hover:border-gold/30 transition duration-200">
             <span className="font-serif text-2xl font-semibold text-gold/40 block mb-4">01</span>
             <h3 className="font-serif text-lg font-bold text-purple-deep mb-3">RIBA is a hard line</h3>
@@ -225,7 +266,7 @@ export default function HomeView({ setCurrentTab, setShowThemePopup }: HomeViewP
               28.8 million Nigerians are completely financially excluded. Essential needs — solar, housing, education, pilgrimage — go unmet. Until now.
             </p>
           </div>
-        </div>
+        </CarouselWrapper>
       </section>
 
       {/* 4. Advisor Immersive Section */}
@@ -277,23 +318,23 @@ export default function HomeView({ setCurrentTab, setShowThemePopup }: HomeViewP
           <div id="advisor-chat-pane" className="relative scroll-mt-24">
             <div className="absolute -top-10 -left-10 h-40 w-40 rounded-full bg-gold/10 blur-3xl pointer-events-none" />
             <div 
-              className="relative rounded-[20px] overflow-hidden border border-white/20 bg-white/5 backdrop-blur-md cursor-pointer group hover:border-gold/50 transition-all aspect-[4/5] max-h-[520px] min-h-[480px] flex flex-col"
+              className="relative rounded-[20px] overflow-hidden border border-cream/20 bg-cream/5 backdrop-blur-md cursor-pointer group hover:border-gold/50 transition-all aspect-[4/5] max-h-[520px] min-h-[480px] flex flex-col"
               onClick={() => setCurrentTab("umaiza")}
             >
               <div className="absolute inset-0 bg-purple-deep/60 group-hover:bg-purple-deep/40 transition-all z-20 flex flex-col items-center justify-center backdrop-blur-[2px] group-hover:backdrop-blur-none">
-                 <div className="bg-[#D4A843] text-purple-deep px-7 py-3.5 rounded-full font-semibold shadow-2xl flex items-center gap-2 transform group-hover:scale-105 transition-transform hover:bg-yellow-500">
+                 <div className="bg-[#D4A843] text-gray-900 px-7 py-3.5 rounded-full font-semibold shadow-2xl flex items-center gap-2 transform group-hover:scale-105 transition-transform hover:bg-yellow-500">
                    Talk to Umaiza Now <ArrowRight className="h-4 w-4" />
                  </div>
               </div>
               
-              <div className="p-4 px-5 border-b border-white/5 flex items-center justify-between opacity-50 group-hover:opacity-100 transition-opacity pointer-events-none filter blur-[1px] group-hover:blur-none">
+              <div className="p-4 px-5 border-b border-cream/5 flex items-center justify-between opacity-50 group-hover:opacity-100 transition-opacity pointer-events-none filter blur-[1px] group-hover:blur-none">
                 <div className="flex items-center gap-3">
                   <div className="w-[38px] h-[38px] bg-gold rounded-full flex items-center justify-center font-serif text-[17px] font-semibold text-purple-deep">
                     U
                   </div>
                   <div>
-                    <div className="text-[14px] font-medium text-white leading-tight">Umaiza</div>
-                    <div className="flex items-center gap-1.5 text-[12px] text-white/40 mt-0.5">
+                    <div className="text-[14px] font-medium text-cream leading-tight">Umaiza</div>
+                    <div className="flex items-center gap-1.5 text-[12px] text-cream/40 mt-0.5">
                       <span className="w-1.5 h-1.5 bg-[#4ADE80] rounded-full animate-pulse" />
                       Online — responds instantly
                     </div>
@@ -302,13 +343,13 @@ export default function HomeView({ setCurrentTab, setShowThemePopup }: HomeViewP
               </div>
 
               <div className="opacity-50 group-hover:opacity-100 transition-opacity p-6 pointer-events-none filter blur-[1px] group-hover:blur-none flex-1 flex flex-col justify-end gap-3 pb-8">
-                 <div className="bg-white/5 border border-white/10 text-white/85 p-4 py-3 rounded-tr-[14px] rounded-br-[14px] rounded-bl-[14px] rounded-tl-[2px] max-w-[85%] text-[13.5px] leading-[1.6]">
+                 <div className="bg-cream/5 border border-cream/10 text-cream/85 p-4 py-3 rounded-tr-[14px] rounded-br-[14px] rounded-bl-[14px] rounded-tl-[2px] max-w-[85%] text-[13.5px] leading-[1.6]">
                    As-salamu alaykum! I'm Umaiza, your personal interest-free finance guide. What would you like to finance today?
                  </div>
-                 <div className="bg-gold text-purple-deep p-4 py-3 rounded-tl-[14px] rounded-br-[14px] rounded-bl-[14px] rounded-tr-[2px] max-w-[85%] ml-auto text-[13.5px] leading-[1.6] font-medium">
+                 <div className="bg-gold text-gray-900 p-4 py-3 rounded-tl-[14px] rounded-br-[14px] rounded-bl-[14px] rounded-tr-[2px] max-w-[85%] ml-auto text-[13.5px] leading-[1.6] font-medium">
                    I want to go for Umrah but I can't pay everything upfront
                  </div>
-                 <div className="bg-white/5 border border-white/10 text-white/85 p-4 py-3 rounded-tr-[14px] rounded-br-[14px] rounded-bl-[14px] rounded-tl-[2px] max-w-[85%] text-[13.5px] leading-[1.6]">
+                 <div className="bg-cream/5 border border-cream/10 text-cream/85 p-4 py-3 rounded-tr-[14px] rounded-br-[14px] rounded-bl-[14px] rounded-tl-[2px] max-w-[85%] text-[13.5px] leading-[1.6]">
                    MashaAllah — may Allah accept your intention! With Umrah Financing, you pay just 30% now and spread the rest over up to 36 months. 100% interest-free, fully halal. Want me to check if you qualify?
                  </div>
               </div>
@@ -329,7 +370,7 @@ export default function HomeView({ setCurrentTab, setShowThemePopup }: HomeViewP
           We don't lend capital. We don't sell merchandise. We orchestrate the trusted relationships that make ethical financing work at scale.
         </p>
 
-        <div className="flex md:grid gap-4 md:gap-6 md:grid-cols-3 overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-6 md:pb-0 -mx-6 px-6 md:mx-0 md:px-0 scroll-smooth">
+        <CarouselWrapper>
           <div className="w-[85vw] sm:w-[320px] md:w-auto shrink-0 snap-center rounded-2xl border border-purple-deep/10 bg-white p-8 flex flex-col justify-between hover:border-gold transition duration-200">
             <div>
               <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-purple-deep/5 text-purple-deep mb-6">
@@ -374,7 +415,7 @@ export default function HomeView({ setCurrentTab, setShowThemePopup }: HomeViewP
               Partner with us <ArrowRight className="h-4 w-4" />
             </button>
           </div>
-        </div>
+        </CarouselWrapper>
       </section>
 
       {/* 6. Product Focus Areas / Bento Grid */}
@@ -401,7 +442,7 @@ export default function HomeView({ setCurrentTab, setShowThemePopup }: HomeViewP
             </button>
           </div>
 
-          <div className="flex md:grid gap-4 md:gap-6 md:grid-cols-3 items-stretch overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-6 md:pb-0 -mx-6 px-6 md:mx-0 md:px-0 scroll-smooth">
+          <CarouselWrapper>
             {accordions.map((accordion, accordionIdx) => (
               <div
                 key={accordionIdx}
@@ -439,7 +480,7 @@ export default function HomeView({ setCurrentTab, setShowThemePopup }: HomeViewP
                 </div>
               </div>
             ))}
-          </div>
+          </CarouselWrapper>
         </div>
       </section>
 

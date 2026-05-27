@@ -821,7 +821,6 @@ WHAT YOU MUST NEVER DO
       
       const recentChatSnapshot = await firestore
         .collection("analytics_events")
-        .where("eventName", "==", "chat_query")
         .where("timestamp", ">=", sevenDaysAgo)
         .get();
 
@@ -837,12 +836,14 @@ WHAT YOU MUST NEVER DO
 
       recentChatSnapshot.forEach(doc => {
         const data = doc.data();
-        const timestamp = data.timestamp;
-        if (timestamp) {
-           const dateStr = timestamp.toDate().toISOString().split('T')[0];
-           if (activityMap[dateStr] !== undefined) {
-             activityMap[dateStr]++;
-           }
+        if (data.eventName === "chat_query") {
+          const timestamp = data.timestamp;
+          if (timestamp) {
+             const dateStr = timestamp.toDate().toISOString().split('T')[0];
+             if (activityMap[dateStr] !== undefined) {
+               activityMap[dateStr]++;
+             }
+          }
         }
       });
       

@@ -19,7 +19,7 @@ import UmaizaLandingView from "./components/UmaizaLandingView";
 export default function App() {
   const [currentTab, setCurrentTab] = useState("home");
   const [user, setUser] = useState<User | null>(null);
-  const [needsAuth, setNeedsAuth] = useState(true);
+  const [needsAuth, setNeedsAuth] = useState(false);
   const [isLoggingIn, setIsLoggingIn] = useState(false);
   const [showThemePopup, setShowThemePopup] = useState(false);
   const [isDarkTheme, setIsDarkTheme] = useState(false);
@@ -41,11 +41,13 @@ export default function App() {
         setNeedsAuth(false);
       },
       () => {
-        setNeedsAuth(true);
+        // setNeedsAuth(true); // Temporarily disabled
       }
     );
     return () => unsubscribe();
   }, []);
+
+  const [loginError, setLoginError] = useState<string | null>(null);
 
   // Sync hash links if present on load or hashchange
   useEffect(() => {
@@ -70,14 +72,23 @@ export default function App() {
 
   const handleLogin = async () => {
     setIsLoggingIn(true);
+    setLoginError(null);
     try {
       const result = await googleSignIn();
       if (result) {
         setUser(result.user);
         setNeedsAuth(false);
       }
-    } catch (err) {
+    } catch (err: any) {
       console.error("Login failed:", err);
+      // Make error human readable
+      if (err.message?.includes('requests-from-referer')) {
+        setLoginError("Your Google Cloud API Key is blocking this URL. Please go to Google Cloud Console > Credentials > API Keys and add this URL to the website restrictions.");
+      } else if (err.message?.includes('popup-blocked')) {
+        setLoginError("Sign-in popup was blocked by your browser. Please allow popups for this site, or open it in a new tab.");
+      } else {
+        setLoginError(err.message || "Login failed. Please try again.");
+      }
     } finally {
       setIsLoggingIn(false);
     }
@@ -89,14 +100,21 @@ export default function App() {
         <div className="bg-white rounded-2xl shadow-sm border border-purple-deep/10 p-8 max-w-sm w-full text-center">
           <ShieldCheck className="w-12 h-12 text-[#D4A843] mx-auto mb-4" />
           <h2 className="font-serif text-2xl font-bold text-purple-deep mb-2">Welcome to Credence</h2>
-          <p className="text-purple-deep opacity-70 mb-8 text-[14px] leading-relaxed">
+          <p className="text-purple-deep opacity-70 mb-6 text-[14px] leading-relaxed">
             Please sign in with your Google account. This helps Umaiza remember your preferences and provide personalized, ethical financial advice.
           </p>
           
+          {loginError && (
+            <div className="mb-6 p-4 bg-red-50 border border-red-200 text-red-700 text-sm rounded-xl text-left select-text">
+              <span className="font-semibold block mb-1">Sign-in Error:</span>
+              <span>{loginError}</span>
+            </div>
+          )}
+
           <button 
             onClick={handleLogin} 
             disabled={isLoggingIn}
-            className="w-full relative shadow-md bg-white border border-purple-deep/10 text-purple-deep font-medium py-3 px-4 rounded-xl flex items-center justify-center gap-3 hover:bg-cream-mid transition cursor-pointer"
+            className="w-full relative shadow-md bg-white border border-purple-deep/10 text-purple-deep font-medium py-3 px-4 rounded-xl flex items-center justify-center gap-3 hover:bg-cream-mid transition cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <svg className="w-5 h-5" viewBox="0 0 48 48">
               <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"></path>

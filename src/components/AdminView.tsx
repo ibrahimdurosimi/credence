@@ -5,9 +5,10 @@ import { FolderSync, FileText, UploadCloud, CheckCircle2, ShieldAlert } from 'lu
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 export default function AdminView() {
-  const [needsAuth, setNeedsAuth] = useState(true);
+  const [needsAuth, setNeedsAuth] = useState(false);
   const [user, setUser] = useState<User | null>(null);
   const [isLoggingIn, setIsLoggingIn] = useState(false);
+  const [loginError, setLoginError] = useState<string | null>(null);
   const [driveFolderId, setDriveFolderId] = useState('');
   const [files, setFiles] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -31,7 +32,7 @@ export default function AdminView() {
         setNeedsAuth(false);
       },
       () => {
-        setNeedsAuth(true);
+        // setNeedsAuth(true); // Temporarily disabled
       }
     );
     return () => unsubscribe();
@@ -39,14 +40,22 @@ export default function AdminView() {
 
   const handleLogin = async () => {
     setIsLoggingIn(true);
+    setLoginError(null);
     try {
       const result = await googleSignIn();
       if (result) {
         setUser(result.user);
         setNeedsAuth(false);
       }
-    } catch (err) {
+    } catch (err: any) {
       console.error('Login failed:', err);
+      if (err.message?.includes('requests-from-referer')) {
+        setLoginError("Your Google Cloud API Key is blocking this URL. Please go to Google Cloud Console > Credentials > API Keys and add this URL to the website restrictions.");
+      } else if (err.message?.includes('popup-blocked')) {
+        setLoginError("Sign-in popup was blocked by your browser. Please allow popups for this site, or open it in a new tab.");
+      } else {
+        setLoginError(err.message || "Login failed. Please try again.");
+      }
     } finally {
       setIsLoggingIn(false);
     }
@@ -126,12 +135,19 @@ export default function AdminView() {
         <div className="bg-white rounded-2xl shadow-sm border border-purple-deep/10 p-8 max-w-sm w-full text-center">
           <ShieldAlert className="w-12 h-12 text-gold mx-auto mb-4" />
           <h2 className="font-serif text-2xl font-bold text-purple-deep mb-2">Admin Portal</h2>
-          <p className="text-purple-deep/70 mb-8 text-sm">Sign in with your Google Workspace account to manage Umaiza's Knowledge Base data.</p>
+          <p className="text-purple-deep/70 mb-6 text-sm">Sign in with your Google Workspace account to manage Umaiza's Knowledge Base data.</p>
           
+          {loginError && (
+            <div className="mb-6 p-4 bg-red-50 border border-red-200 text-red-700 text-sm rounded-xl text-left select-text">
+              <span className="font-semibold block mb-1">Sign-in Error:</span>
+              <span>{loginError}</span>
+            </div>
+          )}
+
           <button 
             onClick={handleLogin} 
             disabled={isLoggingIn}
-            className="w-full relative shadow-md bg-white border border-gray-200 text-gray-700 font-medium py-3 px-4 rounded-lg flex items-center justify-center gap-3 hover:bg-gray-50 transition"
+            className="w-full relative shadow-md bg-white border border-gray-200 text-gray-700 font-medium py-3 px-4 rounded-lg flex items-center justify-center gap-3 hover:bg-gray-50 transition disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <svg className="w-5 h-5" viewBox="0 0 48 48">
               <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"></path>
